@@ -9,7 +9,7 @@ json_data=open('data/valdistrikt2010.geojson')
 data = json.load(json_data)
 
 # construct point based on lat/long returned by geocoder
-point = Point(16.015625, 59.370048)
+point = Point(18.075403, 59.370048)
 
 # check each polygon to see if it contains the point
 i = 0
