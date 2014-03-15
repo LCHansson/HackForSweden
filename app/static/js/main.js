@@ -10,8 +10,6 @@ var map = L.mapbox.map('map', 'hisekaldma.hh4jiokf', {
 
 var geocoder = L.mapbox.geocoder('hisekaldma.hh4jiokf');
 
-var dummyMinisters = [{"name": "Fredrik Reinfeldt","party": "M","title": "statsminister"},{"name": "Anders Borg","party": "M","title": "finansminister"},{"name": "Carl Bildt","party": "M","title": "utrikesminister"},{"name": "Jan Björklund","party": "M","title": "utbildningsminister"},{"party": "M",},{"party": "M",},{"party": "M",},{"party": "M",},{"party": "M",},{"party": "M",},{"party": "KD",},{"party": "KD",},{"party": "KD",},{"party": "FP",},{"party": "FP",},{"party": "FP",},{"party": "FP",},{"party": "C",},{"party": "C",},{"party": "C",},{"party": "C",},{"party": "C",}];
-
 $(function() {
     // Sumbit form
     $('#start-view form').submit(submitForm);
@@ -32,14 +30,26 @@ function submitForm(event) {
     form.find('input[type=submit]').prop('disabled', true);
     form.find('.spinner').show();
     var searchString = form.find('input[type=text]').val();
+    $('#search-again input[type=text]').val(searchString);
 
     // Async: geocode address
     geocoder.query(searchString + ' Sweden', function(error, data) {
+        if (!data.results || data.results.length == 0) {
+            // Enable button
+            form.find('input[type=submit]').prop('disabled', false);
+            form.find('.spinner').hide();
+        }
+
         var result = findBestMatch(data.results);
         var province = getProvince(result);
 
         // Async: get election district and government
-        $.get('api/v1.0/get-district/', {"lat": result[0].lat, "lng": result[0].lon, "province": province }, function(data) {
+        $.get('api/v1.0/get-district/', {
+            "lat": result[0].lat,
+            "lng": result[0].lon,
+            "province": province
+        })
+        .done(function(data) {
             var districtName = data.votingDistrict.properties.VDNAMN;
             var districtGeometry = data.votingDistrict.geometry;
             var namedMinisters = data.votingDistrict.properties.government.namedMinisters;
@@ -48,6 +58,11 @@ function submitForm(event) {
             // Render results on map
             showResult(districtName, districtGeometry, namedMinisters, unnamedMinisters);
 
+            // Enable button
+            form.find('input[type=submit]').prop('disabled', false);
+            form.find('.spinner').hide();
+        })
+        .fail(function() {
             // Enable button
             form.find('input[type=submit]').prop('disabled', false);
             form.find('.spinner').hide();
@@ -142,7 +157,7 @@ function findBestMatch(results) {
 
     for (var i = 0; i < cities.length; i++) {
         for (var j = 0; j < results.length; j++) {
-            if (results[j][1].name == cities[i]) {
+            if (results[j][1] && results[j][1].name == cities[i]) {
                 return results[j];
             }
         }
