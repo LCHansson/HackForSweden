@@ -61,7 +61,7 @@ def getVotingDistrict(lat, lng, province):
         polygon = shape(feature['geometry'])
         if polygon.contains(point):
             return feature
-    return False
+    abort(404)
 
 
 @app.route('/api/v1.0/get-district/', methods=['GET'])
