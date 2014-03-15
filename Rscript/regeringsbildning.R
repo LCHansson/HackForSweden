@@ -149,7 +149,7 @@ findGovernment <- function(seatList) {
 #' EXAMPLES
 #' 
 #' voteList = votesInMyDistrict
-#' mandateList = findMandates(voteList)
+#' seatsInParliament = findSeats(voteList)
 #' 
-#' government = findGovernment(mandateList)
+#' government = findGovernment(seatsInParliament)
 
