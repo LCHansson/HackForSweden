@@ -145,13 +145,13 @@ a:active {
     height: 30px;
 }
 
-#result-view .minister .thumbnail.m  { background-color: #1B49DD; }
-#result-view .minister .thumbnail.c  { background-color: #009933; }
-#result-view .minister .thumbnail.fp { background-color: #6BB7EC; }
-#result-view .minister .thumbnail.kd { background-color: #231977; }
-#result-view .minister .thumbnail.mp { background-color: #83CF39; }
-#result-view .minister .thumbnail.s  { background-color: #EE2020; }
-#result-view .minister .thumbnail.v  { background-color: #AF0000; }
+#result-view .minister .thumbnail.m  { background-color: #3971a8; }
+#result-view .minister .thumbnail.c  { background-color: #328052; }
+#result-view .minister .thumbnail.fp { background-color: #68a2cc; }
+#result-view .minister .thumbnail.kd { background-color: #3b4a82; }
+#result-view .minister .thumbnail.mp { background-color: #73b33e; }
+#result-view .minister .thumbnail.s  { background-color: #de493c; }
+#result-view .minister .thumbnail.v  { background-color: #ab242f; }
 #result-view .minister .thumbnail.sd { background-color: #895928; }
 
 #result-view .minister .name {
