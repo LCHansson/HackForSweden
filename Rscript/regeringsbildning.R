@@ -17,10 +17,13 @@ testdata <- read.table(
 ## Define algorithm
 #' FIND MANDATES
 #' After an election, we want to distribute parliamentary mandates based on a vote
-#' share, but after cosidering some election threshold. In Sweden this threshold
+#' share, but after considering some election threshold. In Sweden this threshold
 #' is set to 4% of the popular vote.
+#' 
+#' The mandates are distributed by the Sainte-Laguë method ("jämkade uddatalsmetoden")
+#' using 1.4 as initial divisor.
 
-findMandates <- function(voteList, threshold = 4) {
+findSeats <- function(voteList, threshold = 4, seats = 349) {
   # Result strings need to be converted from Swedish to English decimal marker
   voteList = lapply(voteList, str_replace_all, ",", ".")
   
@@ -28,13 +31,30 @@ findMandates <- function(voteList, threshold = 4) {
   partiResultNames = names(voteList)[str_detect(names(voteList), "proc")]
   voteList = voteList[names(voteList) %in% partiResultNames]
   
-  # If the party recieved less than the threshold
-  partiResults = lapply(voteList, function(partiResult) {
+  # If the party recieved less than the threshold, its votes are excluded from the 
+  # seat distribution algorithm
+  partiResults = sapply(voteList, function(partiResult) {
     if (as.numeric(partiResult) < threshold)
       return(0)
     else
       return(as.numeric(partiResult))
   })
+  names(partiResults) = sapply(names(partiResults), str_replace_all, ".proc", "")
+  
+  
+  # The number of seats are distributed among the remaining parties using
+  # Sainte-Laguë
+  mandateList = list(S=0, V=0, MP=0, M=0, FP=0, KD=0, C=0, SD=0, FI=0, PP=0, SPI=0, OVR=0, BL=0, OG=0)
+  
+  for (i in 1:seats) {
+    seatWinner = which.max(sapply(names(partiResults), function(parti) {
+      result = partiResults[[parti]]/(1 + mandateList[[parti]])
+      return(result)
+    }))
+    mandateList[names(seatWinner)] = mandateList[[names(seatWinner)]] + 1
+  }
+  
+  return(mandateList)
 }
 
 
@@ -42,6 +62,8 @@ findMandates <- function(voteList, threshold = 4) {
 #' FIND GOVERNMENT
 #' The basic problem is this: Given a strength balance between political parties,
 #' decide which potential party coalition might form a government.
+#' 
+#' The function takes a formatted list of 
 #' 
 #' We assume the following premises:
 #' * All parties have a specified list of which parties they _can_ cooperate with
