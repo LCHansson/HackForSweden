@@ -165,6 +165,7 @@ function findBestMatch(results) {
 
     return results[0];
 }
+
 function getProvince(results) {
     for (var i=0; i < results.length; i++) {
         var d = results[i];

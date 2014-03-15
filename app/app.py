@@ -1,7 +1,7 @@
 #!flask/bin/python
 # -*- coding: utf-8 -*-
 import os
-from flask import Flask, jsonify, abort, request
+from flask import Flask, jsonify, abort, request, render_template
 import json
 from shapely.geometry import shape, Point
 
@@ -13,7 +13,12 @@ app = Flask(__name__)
 def index():
     return open('index.html').read()
 
-
+@app.route('/sd-map/')
+def sd_map():
+	json_data = open('data/sd_districts.geojson')
+	geodata = json.load(json_data)
+	return render_template("sd-map.html", geodata = json.dumps(geodata))
+ 
 # API
 provinces = {
 	'Stockholms län': '01',
@@ -68,31 +73,6 @@ def get_data():
 
     data["votingDistrict"] = getVotingDistrict(lat, lng, province)
     return jsonify(data)
-    '''
-#    address = "Tegnergatan 12, Stockholm"
-
-    # Geocode address with ArcGIS API
-    geodata = geocoder.google("%s, Sweden" % address.encode('utf-8'), key = "AIzaSyAH2jwRQok8fRjNf5E4Xpn1aYkP2wV8IaU")
-    return jsonify({"data": geodata.status })
-#    try:
-    if geodata:
-        # Get lat-lng coordinates
-        data["latlng"] = geodata.latlng
-
-        # Get municipaltiy name
-        data["municipality"] = geodata.city
-        
-        # Get voting district
-        data["votingDistrict"] = getVotingDistrict(data["latlng"][0], data["latlng"][1], data["municipality"])
-
-    else:
-        # No address found
-        abort(404) # "Was not able to geocode address"
-#    except:
-#        abort(404) # "Something went wrong when we tried to geocode the address"
-    
-    return jsonify(data)
-    '''
 
 
 if __name__ == '__main__':
