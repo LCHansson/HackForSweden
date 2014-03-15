@@ -10,6 +10,8 @@ var map = L.mapbox.map('map', 'hisekaldma.hh4jiokf', {
 
 var geocoder = L.mapbox.geocoder('hisekaldma.hh4jiokf');
 
+var districtLayer = null;
+
 $(function() {
     // Sumbit form
     $('#start-view form').submit(submitForm);
@@ -123,7 +125,10 @@ function showResult(districtName, districtGeometry, namedMinisters, unnamedMinis
         el.find('.thumbnail').css('animation-duration', animationLength + 's');
     });
 
-    // Add a district layer 
+    // Add a district layer
+    if (districtLayer)
+        map.removeLayer(districtLayer);
+
     var featureData = {
         "type": "FeatureCollection",
         "features": [{
@@ -138,7 +143,7 @@ function showResult(districtName, districtGeometry, namedMinisters, unnamedMinis
         "geometry": districtGeometry
         }]
     };
-    var districtLayer = L.geoJson(featureData, {
+    districtLayer = L.geoJson(featureData, {
         pointToLayer: L.mapbox.marker.style,
         style: function(feature) { return feature.properties; }
     }).addTo(map);
