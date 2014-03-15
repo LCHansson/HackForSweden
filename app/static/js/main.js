@@ -22,10 +22,10 @@ $(function() {
         // Async: geocode address
         geocoder.query(searchString + ' Sweden', function(error, data) {
             var result = findBestMatch(data.results);
-            var municipality = null;
+            var province = getProvince(result);
 
             // Async: get election district and government
-            $.get('api/v1.0/get-district/', {"lat": result[0].lat, "lng": result[0].lon, "municipality": municipality }, function(data) {
+            $.get('api/v1.0/get-district/', {"lat": result[0].lat, "lng": result[0].lon, "province": province }, function(data) {
                 var districtName = data.votingDistrict.properties.VDNAMN;
                 var districtGeometry = data.votingDistrict.geometry;
                 var ministers = dummyMinisters;
@@ -112,4 +112,11 @@ function findBestMatch(results) {
     }
 
     return results[0];
+}
+function getProvince(results) {
+    for (var i=0; i < results.length; i++) {
+        var d = results[i];
+        if (d.type == "province") return d.name;
+    }
+    return null;
 }
