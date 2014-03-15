@@ -14,6 +14,7 @@ var geocoder = L.mapbox.geocoder('hisekaldma.hh4jiokf');
 $(function() {
     $('#start-view button').click(function() {
         showPosition($('#start-view input').val());
+        showGovernment();
     });
 });
 
@@ -37,7 +38,113 @@ function showPosition(searchString) {
 
         $('#start-view').hide();
         $('#result-view').show();
+        $('#map').addClass('result');
         map.setView(coordinates, resultZoom, { animate: true });
+    });
+}
+
+function showGovernment() {
+    var ministers = [
+        {
+            "name": "Fredrik Reinfeldt",
+            "party": "M",
+            "title": "statsminister"
+        },
+        {
+            "name": "Anders Borg",
+            "party": "M",
+            "title": "finansminister"
+        },
+        {
+            "name": "Carl Bildt",
+            "party": "M",
+            "title": "utrikesminister"
+        },
+        {
+            "name": "Jan Björklund",
+            "party": "M",
+            "title": "utbildningsminister"
+        },
+        {
+            "party": "M",
+        },
+        {
+            "party": "M",
+        },
+        {
+            "party": "M",
+        },
+        {
+            "party": "M",
+        },
+        {
+            "party": "M",
+        },
+        {
+            "party": "M",
+        },
+        {
+            "party": "KD",
+        },
+        {
+            "party": "KD",
+        },
+        {
+            "party": "KD",
+        },
+        {
+            "party": "FP",
+        },
+        {
+            "party": "FP",
+        },
+        {
+            "party": "FP",
+        },
+        {
+            "party": "FP",
+        },
+        {
+            "party": "C",
+        },
+        {
+            "party": "C",
+        },
+        {
+            "party": "C",
+        },
+        {
+            "party": "C",
+        },
+        {
+            "party": "C",
+        }
+    ];
+
+    ministers.forEach(function(minister) {
+        var el = $('<div class="minister"></div>');
+
+        el.append('<div class="thumbnail + ' + minister.party + '"></div>');
+
+        // Name
+        if (minister.name)
+            el.append('<div class="name">' + minister.name + ', ' + minister.party + '</div>');
+        else
+            el.append('<div class="name">' + minister.party + '</div>');
+
+        // Title
+        if (minister.title)
+            el.append('<div class="title">' + minister.title + '</div>');
+
+        // Size
+        if (minister.title == 'statsminister')
+            el.addClass('l');
+        else if (minister.title)
+            el.addClass('m');
+        else
+            el.addClass('s');
+
+        el.appendTo('#result-view .regeringen');
     });
 }
 

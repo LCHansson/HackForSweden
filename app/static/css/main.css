@@ -11,6 +11,7 @@
 
 body {
     font-family: 'Roboto Slab', sans-serif;
+    text-rendering: optimizeLegibility;
 }
 
 #map {
@@ -21,6 +22,10 @@ body {
     top: 0;
     z-index: -1;
     background: #404d55;
+}
+
+#map.result {
+    right: 600px;
 }
 
 .btn-primary {
@@ -43,7 +48,6 @@ h1 {
     font-size: 26px;
     font-weight: 500;
     line-height: 1.2;
-    text-rendering: optimizeLegibility;
 }
 
 h2 {
@@ -80,20 +84,74 @@ a:active {
 }
 
 #result-view .regeringen {
-    max-width: 600px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 600px;
     padding: 20px;
-    margin: 10% auto;
     background: #fff;
-    border-radius: 5px;
+    overflow: auto;
 }
 
 #result-view .regeringen h1 {
     font-size: 24px;
-    margin: 0px;
+    margin: 0px 0px 20px 0px;
+    text-align: center;
 }
 
 #result-view .regeringen h1 strong {
     color: #d69616;
+}
+
+#result-view .minister {
+    float: left;
+}
+
+#result-view .minister.l {
+    width: 100%;
+    height: 130px;
+}
+
+#result-view .minister.m {
+    width: 33%;
+    height: 110px;
+}
+
+#result-view .minister.s {
+    width: 62px;
+    height: 60px;
+}
+
+#result-view .minister .thumbnail {
+    margin: auto;
+    background: #000;
+    border-radius: 50%;
+    border: none;
+}
+
+#result-view .minister.l .thumbnail {
+    width: 80px;
+    height: 80px;
+}
+
+#result-view .minister.m .thumbnail {
+    width: 50px;
+    height: 50px;
+}
+
+#result-view .minister.s .thumbnail {
+    width: 30px;
+    height: 30px;
+}
+
+#result-view .minister .name {
+    font-weight: bold;
+    text-align: center;
+}
+
+#result-view .minister .title {
+    text-align: center;
 }
 
 #result-view footer {
