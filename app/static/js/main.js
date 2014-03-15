@@ -1,4 +1,4 @@
-var startCoord = [63, 18];
+var startCoord = [62.913283, 15.609505];
 var startZoom = 5;
 
 var map = L.mapbox.map('map', 'hisekaldma.hh4jiokf', {
@@ -117,12 +117,12 @@ function showResult(districtName, districtGeometry, namedMinisters, unnamedMinis
                 el.append('<div class="thumbnail bounceIn ' + party.toLowerCase() + '"></div>');
                 el.append('<div class="name">' + party + '</div>');
                 el.appendTo('#result-view .government');
+
+                // Animation
+                var animationLength = Math.random() + 0.5;
+                el.find('.thumbnail').css('animation-duration', animationLength + 's');
             }
         }
-
-        // Animation
-        var animationLength = Math.random() + 0.5;
-        el.find('.thumbnail').css('animation-duration', animationLength + 's');
     });
 
     // Add a district layer
@@ -157,14 +157,17 @@ function showResult(districtName, districtGeometry, namedMinisters, unnamedMinis
 }
 
 function findBestMatch(results) {
+
     // Pick address in one of these cities if possible
-    var cities = ['Stockholm', 'Goteborg', 'Malmo'];
+    var cities = ['Stockholm', 'Göteborg', 'Malmö'];
 
     for (var i = 0; i < cities.length; i++) {
         for (var j = 0; j < results.length; j++) {
-            if (results[j][1] && results[j][1].name == cities[i]) {
-                return results[j];
-            }
+            for (var k = 0; k < results[j].length; k++) {
+                if (results[j][k] && results[j][k].name.indexOf(cities[i]) != -1) {
+                    return results[j];
+                }
+            };
         }
     }
 
