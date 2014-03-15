@@ -10,6 +10,7 @@
 - Malmvägen, Kiruna
 - Framgången, Göteborg 
 - Smedjegatan Malmö (M+MP)
+- Storgatan 18, Svedala (SD!)
 
 ### Utvecklingsmöjligheter:
 
