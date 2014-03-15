@@ -14,10 +14,7 @@ function showResults(searchString) {
     $.get('api/v1.0/get-district/' + encodeURIComponent(searchString), function(data) {
         console.log(data);
         var name = data.votingDistrict.properties.VDNAMN;
-        var coordinates = [
-            data.searchLocation.feature.geometry.y,
-            data.searchLocation.feature.geometry.x
-        ];
+        var coordinates = data.latlng;
 
         $('#start-view').hide();
         $('#result-view').show();
