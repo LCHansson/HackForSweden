@@ -16,30 +16,43 @@ $(function() {
         showPosition($('#start-view input').val());
     });
 });
-
 function showResults(lat, lng, municipality) {
     $.get('api/v1.0/get-district/', {"lat": lat, "lng": lng, "municipality": municipality }, function(data) {
-        console.log(data)
         var name = data.votingDistrict.properties.VDNAMN;
         var coordinates = [lat, lng];
 
         $('#start-view').hide();
         $('#result-view').show();
         $('#result-view strong').text(name);
-        map.setView(coordinates, resultZoom, { animate: true });
+
+        // Add a district layer 
+        var featureData = {
+            "type": "FeatureCollection",
+            "features": [{
+                "type": "Feature",
+                "properties": {
+                    // Set style of layer
+                    "color": "#895928",
+                    "fillColor": "#d69616",
+                    "fillOpacity": 0.4
+                },
+            "geometry": data.votingDistrict.geometry
+            }]
+        };
+        districtLayer = L.geoJson(featureData, {
+            pointToLayer: L.mapbox.marker.style,
+            style: function(feature) { return feature.properties; }
+        }).addTo(map);
+
+        // Fit bounds
+        map.fitBounds(districtLayer.getBounds(), { animate: true});
     })
 }
 
 function showPosition(searchString) {
     geocoder.query(searchString + ' Sweden', function(error, data) {
         var result = findBestResult(data.results);
-        console.log(result);
         showResults(result[0].lat, result[0].lon, result[0].name);
-//        var coordinates = [result[0].lat, result[0].lon];
-//       $('#start-view').hide();
-//        $('#result-view').show();
-
-//        map.setView(coordinates, resultZoom, { animate: true });
     });
 }
 
