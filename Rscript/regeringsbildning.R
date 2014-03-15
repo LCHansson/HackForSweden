@@ -148,7 +148,18 @@ findGovernment <- function(seatList) {
 
 #' EXAMPLES
 #' 
-#' voteList = votesInMyDistrict
+#' # Get election results from a template CSV file.
+#' testdata <- read.table(
+#'  file = "data/valresultat/slutligt_valresultat_valdistrikt_R.skv",
+#'  header = TRUE,
+#'  sep = ";",
+#'  nrows = 10,
+#'  fileEncoding = "ISO8859-1",
+#'  stringsAsFactors = FALSE
+#' )
+#' 
+#' # Pick an election district (in the CSV file, each row is an election district)
+#' voteList = testdata[1,]
 #' seatsInParliament = findSeats(voteList)
 #' 
 #' government = findGovernment(seatsInParliament)
