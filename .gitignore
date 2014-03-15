@@ -10,3 +10,6 @@
 # Don't add ugly OSX files
 *.DS_Store
 .Rproj.user
+
+# Python virtualenv
+/app/env

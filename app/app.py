@@ -1,14 +1,20 @@
 #!flask/bin/python
 # -*- coding: utf-8 -*-
+import os
 from flask import Flask, jsonify
 import json
 import urllib
 from urllib2 import urlopen
 from geopy import geocoders 
 from shapely.geometry import shape, Point
+
 app = Flask(__name__)
 
 
+# The public start/results page
+@app.route('/')
+def index():
+    return open('index.html').read()
 
 
 # API
@@ -57,4 +63,5 @@ def get_data(address):
 
 
 if __name__ == '__main__':
-    app.run(debug = True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(debug=True, host='0.0.0.0', port=port)
