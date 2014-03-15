@@ -138,7 +138,7 @@ findGovernment <- function(seatList) {
   if (coalitionSeats >= majorityThreshhold) {
     return(coalition)
   } else {
-    warning ("Could not find a successful government coalition. Forming fascist government.")
+    message("Could not find a successful government coalition. Forming fascist government.")
     coalition = list(seatList["M"], seatList["FP"], seatList["KD"], seatList["C"], seatList["SD"])
     coalitionSeats = sum(unlist(coalition))
   }
