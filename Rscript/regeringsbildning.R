@@ -138,9 +138,10 @@ findGovernment <- function(seatList) {
   if (coalitionSeats >= majorityThreshhold) {
     return(coalition)
   } else {
+    coalition = list()
     message("Could not find a successful government coalition. Forming fascist government.")
-    coalition = list(seatList["M"], seatList["FP"], seatList["KD"], seatList["C"], seatList["SD"])
-    coalitionSeats = sum(unlist(coalition))
+    coalition = append(coalition, c(seatList["M"], seatList["FP"], seatList["KD"], seatList["C"], seatList["SD"]))
+    return(coalition)
   }
 }
 
@@ -244,11 +245,13 @@ findMinisters <- function(govt, seats = 20) {
     sapply(ministerList$namedMinisters, function(i) return(i$party))
   ))
   
+  seatList = seatList[names(seatList) %in% names(appointedSeats)]
   ministerList = append(
     ministerList,
     list(unnamedMinisters = lapply(names(seatList), function(i) {
       value = list(seatList[[i]] - appointedSeats[[i]])
       names(value) = i
+      
       return(value)
     }))
   )
