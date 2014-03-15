@@ -2,37 +2,57 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, jsonify
 import json
+import urllib
+from urllib2 import urlopen
 from geopy import geocoders 
 from shapely.geometry import shape, Point
 app = Flask(__name__)
 
 
-@app.route('/')
-def index():
-    return "Hello, World!"
 
 
-data = {}
-
-
-@app.route('/api/v1.0/get-district/<address>', methods=['GET'])
-def get_data(address):
+# API
+def getVotingDistrict(lat, lng, municipality):
+    # Open geo data for all voting districts in Sweden
+    # TODO: Split this file into muicipality files
     json_data = open('data/valdistrikt2010.geojson')
     geodata = json.load(json_data)
 
-    # check each polygon to see if it contains the point
-    data['lat'] = 59.370048
-    data['lng'] = 18.075403
-    point = Point(data['lng'], data['lat'])
-    i = 0
+    # Check each polygon in the geodata set to see if it contains the point
+    point = Point(lng, lat)
     for feature in geodata['features']:
-        i = i + 1
         polygon = shape(feature['geometry'])
         if polygon.contains(point):
-            data['feature'] = feature
-            break
+            return feature
+    return False
 
-    data['msg'] = "Iterated %s lines" % (i)
+@app.route('/api/v1.0/get-district/<address>', methods=['GET'])
+def get_data(address):
+    data = {}
+#    address = "Tegnergatan 12, Stockholm"
+
+    # Geocode address with ArcGIS API
+    url = "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/find?text=%s&f=pjson" % (urllib.quote_plus(address))
+#    try:
+    geodata = json.load(urlopen(url))
+    if len(geodata["locations"]) > 0:
+        # The address was found
+        data["searchLocation"] = geodata["locations"][0]
+
+        # Get lat-lng coordinates
+        cord = data["searchLocation"]["feature"]["geometry"]
+
+        # Get municipaltiy name
+        data["municipality"] = data["searchLocation"]["name"].split(",")[-1]
+        
+        # Get voting district
+        data["votingDistrict"] = getVotingDistrict(cord["y"], cord["x"], data["municipality"])
+    else:
+        # No address found
+        data["error"] = "Was not able to geocode address"
+#    except:
+#        data["error"] = "Something went wrong when we tried to geocode the address"
+    
     return jsonify(data)
 
 
