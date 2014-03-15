@@ -227,18 +227,17 @@ a:active {
 #result-view footer h2 {
     margin: 0px;
 }
+
 /* Search again 
-====================================================================================*/
+   ========================================================================== */
+
 #search-again {
     position: absolute;
-    left: 10px;
+    left: 20px;
     bottom: 70px;
     background-color: #fff;
-    padding: 10px;
-    border-radius: 5px;
-}
-#search-again h3 {
-    cursor: pointer;
-    margin-top: 0;
-    margin-bottom: 5px;
+    padding: 10px 15px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    font-size: 18px;
 }

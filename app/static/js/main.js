@@ -17,9 +17,11 @@ $(function() {
     $('#start-view form').submit(function(event) {
         event.preventDefault();
 
-        $('#start-view .btn-primary').prop("disabled", true);
-        $('#start-view .spinner').show();
-        var searchString = $('#start-view #search').val();
+        var form = $(this);
+
+        form.find('input[type=submit]').prop("disabled", true);
+        form.find('.spinner').show();
+        var searchString = form.find('input[type=text]').val();
 
         // Async: geocode address
         geocoder.query(searchString + ' Sweden', function(error, data) {
@@ -39,8 +41,9 @@ $(function() {
     });
 
     // Search again
-    $("#search-again h3").click(function() {
-        $("#search-again-form").toggle("slow");
+    $("#search-again a").click(function(event) {
+        event.preventDefault();
+        $("#search-again-form").toggle('slow');
     }) 
 });
 
