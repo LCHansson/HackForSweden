@@ -29,15 +29,20 @@ body {
 }
 
 .btn-primary {
-    background: #d69616;
+    background: #d69616 !important;
     border: none;
 }
 
 .btn-primary:hover,
 .btn-primary:active,
 .btn-primary:focus {
-    background: #ba7a14;
+    background-color: #ba7a14 !important;
     outline: none;
+}
+
+.btn:disabled {
+    opacity: 1;
+    color: rgba(255,255,255,0.3);
 }
 
 .form-control {
@@ -63,6 +68,42 @@ a:active {
     color: #ba7a14;
 }
 
+.spinner {
+    position: relative;
+    height: 26px;
+    width: 26px;
+    margin: 0px auto;
+    -webkit-animation: rotation .6s infinite linear;
+    -moz-animation: rotation .6s infinite linear;
+    -o-animation: rotation .6s infinite linear;
+    animation: rotation .6s infinite linear;
+    border-left: 4px solid rgba(255,255,255,.2);
+    border-right: 4px solid rgba(255,255,255,.2);
+    border-bottom: 4px solid rgba(255,255,255,.2);
+    border-top: 4px solid rgba(255,255,255,1);
+    border-radius: 100%;
+}
+
+@-webkit-keyframes rotation {
+    from {-webkit-transform: rotate(0deg);}
+    to {-webkit-transform: rotate(359deg);}
+}
+
+@-moz-keyframes rotation {
+    from {-moz-transform: rotate(0deg);}
+    to {-moz-transform: rotate(359deg);}
+}
+
+@-o-keyframes rotation {
+    from {-o-transform: rotate(0deg);}
+    to {-o-transform: rotate(359deg);}
+}
+
+@keyframes rotation {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(359deg);}
+}
+
 /* Start view
    ========================================================================== */
 
@@ -74,6 +115,14 @@ a:active {
 #start-view h1 {
     color: #fff;
     margin-bottom: 20px;
+}
+
+#start-view .spinner {
+    display: none;
+    position: relative;
+    top: -35px;
+    left: -10px;
+    float: right;
 }
 
 /* Result view
