@@ -14,37 +14,51 @@ var dummyMinisters = [{"name": "Fredrik Reinfeldt","party": "M","title": "statsm
 
 $(function() {
     // Sumbit form
-    $('#start-view form').submit(function(event) {
-        event.preventDefault();
-
-        $('#start-view .btn-primary').prop("disabled", true);
-        $('#start-view .spinner').show();
-        var searchString = $('#start-view #search').val();
-
-        // Async: geocode address
-        geocoder.query(searchString + ' Sweden', function(error, data) {
-            var result = findBestMatch(data.results);
-            var province = getProvince(result);
-
-            // Async: get election district and government
-            $.get('api/v1.0/get-district/', {"lat": result[0].lat, "lng": result[0].lon, "province": province }, function(data) {
-                var districtName = data.votingDistrict.properties.VDNAMN;
-                var districtGeometry = data.votingDistrict.geometry;
-                var ministers = dummyMinisters;
-
-                // Render results on map
-                showResult(districtName, districtGeometry, ministers);
-            });
-        });
-    });
+    $('#start-view form').submit(submitForm);
+    $('#search-again form').submit(submitForm);    
 
     // Search again
-    $("#search-again h3").click(function() {
-        $("#search-again-form").toggle("slow");
+    $('#search-again a').click(function(event) {
+        event.preventDefault();
+        $('#search-again-form').toggle('slow');
     }) 
 });
 
-function showResult(districtName, districtGeometry, ministers) {
+function submitForm(event) {
+    event.preventDefault();
+
+    var form = $(this);
+
+    form.find('input[type=submit]').prop('disabled', true);
+    form.find('.spinner').show();
+    var searchString = form.find('input[type=text]').val();
+
+    // Async: geocode address
+    geocoder.query(searchString + ' Sweden', function(error, data) {
+        var result = findBestMatch(data.results);
+        var province = getProvince(result);
+
+        // Async: get election district and government
+        $.get('api/v1.0/get-district/', {"lat": result[0].lat, "lng": result[0].lon, "province": province }, function(data) {
+            var districtName = data.votingDistrict.properties.VDNAMN;
+            var districtGeometry = data.votingDistrict.geometry;
+            var namedMinisters = data.votingDistrict.properties.government.namedMinisters;
+            var unnamedMinisters = data.votingDistrict.properties.government.unnamedMinisters;
+
+            // Render results on map
+            showResult(districtName, districtGeometry, namedMinisters, unnamedMinisters);
+
+            // Enable button
+            form.find('input[type=submit]').prop('disabled', false);
+            form.find('.spinner').hide();
+        });
+    });
+}
+
+function showResult(districtName, districtGeometry, namedMinisters, unnamedMinisters) {
+
+    // Make sure we start from scratch
+    $('#result-view .government').html('<h1>Så här hade regeringen kunnat se ut om valdistriktet <strong>valdistriktsnamn</strong> fått bestämma:</h1>');
 
     $('#map').addClass('result');
     map.invalidateSize();
@@ -52,31 +66,46 @@ function showResult(districtName, districtGeometry, ministers) {
     // Set the name
     $('#result-view strong').text(districtName);
 
-    // Show the ministers
-    ministers.forEach(function(minister) {
+    // Show the named ministers
+    namedMinisters.forEach(function(minister) {
         var el = $('<div class="minister"></div>');
 
-        el.append('<div class="thumbnail ' + minister.party.toLowerCase() + '"></div>');
-
-        // Name
-        if (minister.name)
-            el.append('<div class="name">' + minister.name + ', ' + minister.party + '</div>');
-        else
-            el.append('<div class="name">' + minister.party + '</div>');
+        el.append('<div class="thumbnail bounceIn ' + minister.party.toLowerCase() + '"></div>');
+        el.append('<div class="name">' + minister.name + ' (' + minister.party + ')</div>');
 
         // Title
         if (minister.title)
             el.append('<div class="title">' + minister.title + '</div>');
 
         // Size
-        if (minister.title == 'statsminister')
+        if (minister.title == 'Statsminister')
             el.addClass('l');
-        else if (minister.title)
-            el.addClass('m');
         else
-            el.addClass('s');
+            el.addClass('m');
 
-        el.appendTo('#result-view .regeringen');
+        // Animation
+        var animationLength = Math.random() + 0.5;
+        el.find('.thumbnail').css('animation-duration', animationLength + 's');
+
+        el.appendTo('#result-view .government');
+    });
+
+    // Show the unnamed ministers
+    unnamedMinisters.forEach(function(minister) {
+        for (prop in minister) {
+            var party = prop;
+            var seats = minister[prop];
+            for (var i = 0; i < seats; i++) {
+                var el = $('<div class="minister s"></div>');
+                el.append('<div class="thumbnail bounceIn ' + party.toLowerCase() + '"></div>');
+                el.append('<div class="name">' + party + '</div>');
+                el.appendTo('#result-view .government');
+            }
+        }
+
+        // Animation
+        var animationLength = Math.random() + 0.5;
+        el.find('.thumbnail').css('animation-duration', animationLength + 's');
     });
 
     // Add a district layer 
@@ -94,7 +123,7 @@ function showResult(districtName, districtGeometry, ministers) {
         "geometry": districtGeometry
         }]
     };
-    districtLayer = L.geoJson(featureData, {
+    var districtLayer = L.geoJson(featureData, {
         pointToLayer: L.mapbox.marker.style,
         style: function(feature) { return feature.properties; }
     }).addTo(map);
@@ -124,7 +153,7 @@ function findBestMatch(results) {
 function getProvince(results) {
     for (var i=0; i < results.length; i++) {
         var d = results[i];
-        if (d.type == "province") return d.name;
+        if (d.type == 'province') return d.name;
     }
     return null;
 }

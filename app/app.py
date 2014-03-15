@@ -16,34 +16,35 @@ def index():
 
 # API
 provinces = {
-	'Stockholms läns': '01',
-	'Uppsala läns': '03',
-	'Södermanlands läns': '04',
-	'Östergötlands läns': '05',
-	'Jönköpings läns': '06',
-	'Kronobergs läns': '07',
-	'Kalmar läns': '08',
-	'Gotlands läns': '09',
-	'Blekinge läns': '10',
-	'Skåne läns': '12',
-	'Hallands läns': '13',
+	'Stockholms län': '01',
+	'Uppsala län': '03',
+	'Södermanlands län': '04',
+	'Östergötlands län': '05',
+	'Jönköpings län': '06',
+	'Kronobergs län': '07',
+	'Kalmar län': '08',
+	'Gotlands län': '09',
+	'Blekinge län': '10',
+	'Skåne län': '12',
+	'Hallands län': '13',
 	'Västra Götalands': '14',
-	'Värmlands läns': '17',
-	'Örebro läns': '18',
-	'Västmanlands läns': '19',
-	'Dalarnas läns': '20',
-	'Gävleborgs läns': '21',
-	'Västernorrlands läns': '22',
-	'Jämtlands läns': '23',
-	'Västerbottens läns': '24',
-	'Norrbottens läns': '25',
+	'Värmlands län': '17',
+	'Örebro län': '18',
+	'Västmanlands län': '19',
+	'Dalarnas län': '20',
+	'Gävleborgs län': '21',
+	'Västernorrlands län': '22',
+	'Jämtlands län': '23',
+	'Västerbottens län': '24',
+	'Norrbottens län': '25',
 }
 
 def getVotingDistrict(lat, lng, province):
     # Open geo data for all voting districts in Sweden
     # TODO: Split this file into muicipality files
-    if False:#province in provinces:
-    	fileName = "provinces/%s" % provinces[provinces]
+    province = province.encode("utf-8")
+    if province in provinces:
+    	fileName = "provinces/%s" % provinces[province]
     else:
     	fileName = "govt_valdistrikt2010"
     json_data = open('data/%s.geojson' % fileName)
