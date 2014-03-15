@@ -16,7 +16,7 @@ def index():
 
 # API
 
-def getVotingDistrict(lat, lng, municipality):
+def getVotingDistrict(lat, lng, province):
     # Open geo data for all voting districts in Sweden
     # TODO: Split this file into muicipality files
     json_data = open('data/valdistrikt2010.geojson')
@@ -36,9 +36,9 @@ def get_data():
     data = {}
     lat = float(request.args.get('lat'))
     lng = float(request.args.get('lng'))
-    municipality = request.args.get('municipality')
+    province = request.args.get('province')
 
-    data["votingDistrict"] = getVotingDistrict(lat, lng, municipality)
+    data["votingDistrict"] = getVotingDistrict(lat, lng, province)
     return jsonify(data)
     '''
 #    address = "Tegnergatan 12, Stockholm"
