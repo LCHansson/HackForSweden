@@ -12,34 +12,53 @@ var map = L.mapbox.map('map', 'hisekaldma.hh4jiokf', {
 var geocoder = L.mapbox.geocoder('hisekaldma.hh4jiokf');
 
 $(function() {
-    $('#start-view button').click(function() {
+    // Sumbit form
+    $('#start-view form').submit(function(event) {
+        event.preventDefault();
         showPosition($('#start-view input').val());
         showGovernment();
     });
 });
-
-function showResults(searchString) {
-    $.get('api/v1.0/get-district/' + encodeURIComponent(searchString), function(data) {
-        console.log(data);
+function showResults(lat, lng, municipality) {
+    $.get('api/v1.0/get-district/', {"lat": lat, "lng": lng, "municipality": municipality }, function(data) {
         var name = data.votingDistrict.properties.VDNAMN;
-        var coordinates = data.latlng;
+        var coordinates = [lat, lng];
 
         $('#start-view').hide();
         $('#result-view').show();
         $('#result-view strong').text(name);
-        map.setView(coordinates, resultZoom, { animate: true });
-    });
+
+        // Add a district layer 
+        var featureData = {
+            "type": "FeatureCollection",
+            "features": [{
+                "type": "Feature",
+                "properties": {
+                    // Set style of layer
+                    "color": "#895928",
+                    "fillColor": "#d69616",
+                    "fillOpacity": 0.4
+                },
+            "geometry": data.votingDistrict.geometry
+            }]
+        };
+        districtLayer = L.geoJson(featureData, {
+            pointToLayer: L.mapbox.marker.style,
+            style: function(feature) { return feature.properties; }
+        }).addTo(map);
+
+        // Fit bounds
+        map.fitBounds(districtLayer.getBounds(), { animate: true});
+    })
 }
 
 function showPosition(searchString) {
+    // Geocode address
     geocoder.query(searchString + ' Sweden', function(error, data) {
         var result = findBestResult(data.results);
-        var coordinates = [result[0].lat, result[0].lon];
 
-        $('#start-view').hide();
-        $('#result-view').show();
-        $('#map').addClass('result');
-        map.setView(coordinates, resultZoom, { animate: true });
+        // Render results on map
+        showResults(result[0].lat, result[0].lon, result[0].name);
     });
 }
 
@@ -149,6 +168,7 @@ function showGovernment() {
 }
 
 function findBestResult(results) {
+    // Pick address in one of these cities if possible
     var cities = ['Stockholm', 'Goteborg', 'Malmo'];
 
     for (var i = 0; i < cities.length; i++) {
