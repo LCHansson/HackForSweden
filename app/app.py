@@ -1,7 +1,7 @@
 #!flask/bin/python
 # -*- coding: utf-8 -*-
 import os
-from flask import Flask, jsonify
+from flask import Flask, jsonify, abort
 import json
 import urllib
 from urllib2 import urlopen
@@ -18,6 +18,7 @@ def index():
 
 
 # API
+
 def getVotingDistrict(lat, lng, municipality):
     # Open geo data for all voting districts in Sweden
     # TODO: Split this file into muicipality files
@@ -32,13 +33,14 @@ def getVotingDistrict(lat, lng, municipality):
             return feature
     return False
 
+
 @app.route('/api/v1.0/get-district/<address>', methods=['GET'])
 def get_data(address):
     data = {}
 #    address = "Tegnergatan 12, Stockholm"
 
     # Geocode address with ArcGIS API
-    url = "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/find?text=%s&f=pjson" % (urllib.quote_plus(address))
+    url = "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/find?text=%s&f=pjson" % (urllib.quote_plus(address.encode("utf-8")))
 #    try:
     geodata = json.load(urlopen(url))
     if len(geodata["locations"]) > 0:
@@ -55,7 +57,7 @@ def get_data(address):
         data["votingDistrict"] = getVotingDistrict(cord["y"], cord["x"], data["municipality"])
     else:
         # No address found
-        data["error"] = "Was not able to geocode address"
+        abort(404) # "Was not able to geocode address"
 #    except:
 #        data["error"] = "Something went wrong when we tried to geocode the address"
     

@@ -9,6 +9,10 @@ import json
 
 # Open file with socioeconomic data, parse and store as dict
 with open('data/socioekonomi2010.tsv', 'rU') as f:
+	d = dict(filter(None, csv.reader(f)))
+
+print d
+'''
     reader = csv.reader(f, delimiter=",")
     i = 0
     for row in reader:
@@ -16,6 +20,7 @@ with open('data/socioekonomi2010.tsv', 'rU') as f:
         i += 1
         if i == 5:
             break
+    '''
 
 
 # Read geojson file
