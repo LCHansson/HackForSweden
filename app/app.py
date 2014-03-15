@@ -15,11 +15,38 @@ def index():
 
 
 # API
+provinces = {
+	'Stockholms läns': '01',
+	'Uppsala läns': '03',
+	'Södermanlands läns': '04',
+	'Östergötlands läns': '05',
+	'Jönköpings läns': '06',
+	'Kronobergs läns': '07',
+	'Kalmar läns': '08',
+	'Gotlands läns': '09',
+	'Blekinge läns': '10',
+	'Skåne läns': '12',
+	'Hallands läns': '13',
+	'Västra Götalands': '14',
+	'Värmlands läns': '17',
+	'Örebro läns': '18',
+	'Västmanlands läns': '19',
+	'Dalarnas läns': '20',
+	'Gävleborgs läns': '21',
+	'Västernorrlands läns': '22',
+	'Jämtlands läns': '23',
+	'Västerbottens läns': '24',
+	'Norrbottens läns': '25',
+}
 
 def getVotingDistrict(lat, lng, province):
     # Open geo data for all voting districts in Sweden
     # TODO: Split this file into muicipality files
-    json_data = open('data/valdistrikt2010.geojson')
+    if province in provinces:
+    	fileName = "provinces/%s" % provinces[provinces]
+    else:
+    	fileName = "valdistrikt2010.geojson"
+    json_data = open('data/%s.geojson' % fileName)
     geodata = json.load(json_data)
 
     # Check each polygon in the geodata set to see if it contains the point
@@ -36,7 +63,7 @@ def get_data():
     data = {}
     lat = float(request.args.get('lat'))
     lng = float(request.args.get('lng'))
-    province = request.args.get('province')
+    province = request.args.get('province') 
 
     data["votingDistrict"] = getVotingDistrict(lat, lng, province)
     return jsonify(data)

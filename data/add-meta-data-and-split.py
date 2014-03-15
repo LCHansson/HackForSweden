@@ -7,7 +7,7 @@ import json
 provinces = {}
 
 # Read geojson file
-json_data=open('../app/data/valdistrikt2010.geojson')
+json_data=open('../app/data/govt_valdistrikt2010.geojson')
 geodata = json.load(json_data)
 for feature in geodata['features']:
     province = feature['properties']['LKFV'][0:2]
