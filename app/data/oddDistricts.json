@@ -1,0 +1,382 @@
+[
+ {
+ "parti": "MP",
+"distriktkod": "01800911",
+"namn": "Engelbrekt 11 Universitetet Ö" 
+},
+{
+ "parti": "MP",
+"distriktkod": "01801408",
+"namn": "Högalid 8 Bergsund N" 
+},
+{
+ "parti": "MP",
+"distriktkod": "01801421",
+"namn": "Högalid 21 Folkskolegatan mm" 
+},
+{
+ "parti": "MP",
+"distriktkod": "01803611",
+"namn": "Skarpnäck 11 Björkhagen Ö" 
+},
+{
+ "parti": "MP",
+"distriktkod": "01803909",
+"namn": "Hägersten 9 Aspudden C" 
+},
+{
+ "parti": "MP",
+"distriktkod": "01803910",
+"namn": "Hägersten 10 Aspudden S" 
+},
+{
+ "parti": "MP",
+"distriktkod": "01803914",
+"namn": "Hägersten 14 Midsommarkransen S" 
+},
+{
+ "parti": "MP",
+"distriktkod": "01803915",
+"namn": "Hägersten 15 Midsommarkransen C" 
+},
+{
+ "parti": "MP",
+"distriktkod": "01803916",
+"namn": "Hägersten 16 Midsommarkransen Ö" 
+},
+{
+ "parti": "MP",
+"distriktkod": "01803935",
+"namn": "Hägersten 35 Tellusborgsvägen" 
+},
+{
+ "parti": "MP",
+"distriktkod": "01840103",
+"namn": "3 Kungshamra" 
+},
+{
+ "parti": "C",
+"distriktkod": "03310711",
+"namn": "Harbo" 
+},
+{
+ "parti": "C",
+"distriktkod": "03600918",
+"namn": "Hållnäs" 
+},
+{
+ "parti": "MP",
+"distriktkod": "03800104",
+"namn": "4 Södra Kapellgärdet" 
+},
+{
+ "parti": "MP",
+"distriktkod": "03800126",
+"namn": "26 Rackarberget" 
+},
+{
+ "parti": "MP",
+"distriktkod": "03800237",
+"namn": "37 Ekeby-Studentstaden" 
+},
+{
+ "parti": "MP",
+"distriktkod": "03800247",
+"namn": "47 Västra Flogsta" 
+},
+{
+ "parti": "C",
+"distriktkod": "05610601",
+"namn": "Hannäs" 
+},
+{
+ "parti": "KD",
+"distriktkod": "06420304",
+"namn": "Mullsjö  4" 
+},
+{
+ "parti": "C",
+"distriktkod": "06621419",
+"namn": "Ås-Kållerstad" 
+},
+{
+ "parti": "KD",
+"distriktkod": "06820929",
+"namn": "Malmbäck" 
+},
+{
+ "parti": "C",
+"distriktkod": "06830210",
+"namn": "Bredaryd  2" 
+},
+{
+ "parti": "C",
+"distriktkod": "06830512",
+"namn": "Hånger-Dannäs" 
+},
+{
+ "parti": "C",
+"distriktkod": "06860514",
+"namn": "Ingatorp" 
+},
+{
+ "parti": "KD",
+"distriktkod": "06860820",
+"namn": "Höreda" 
+},
+{
+ "parti": "C",
+"distriktkod": "07811624",
+"namn": "Lidhult-Vrå-Torpa" 
+},
+{
+ "parti": "C",
+"distriktkod": "08340101",
+"namn": "Gullabo" 
+},
+{
+ "parti": "C",
+"distriktkod": "08340203",
+"namn": "Torsås 3" 
+},
+{
+ "parti": "C",
+"distriktkod": "08830514",
+"namn": "Ukna-Västra Ed" 
+},
+{
+ "parti": "C",
+"distriktkod": "08851010",
+"namn": "Gärdslösa-Långlöt-Runsten" 
+},
+{
+ "parti": "C",
+"distriktkod": "09802401",
+"namn": "Vallstena" 
+},
+{
+ "parti": "C",
+"distriktkod": "09804401",
+"namn": "Kräklingbo" 
+},
+{
+ "parti": "C",
+"distriktkod": "09806701",
+"namn": "Garde" 
+},
+{
+ "parti": "C",
+"distriktkod": "09807301",
+"namn": "Stånga" 
+},
+{
+ "parti": "C",
+"distriktkod": "09807901",
+"namn": "Fardhem" 
+},
+{
+ "parti": "C",
+"distriktkod": "09808401",
+"namn": "Havdhem" 
+},
+{
+ "parti": "C",
+"distriktkod": "09809101",
+"namn": "Burgsvik" 
+},
+{
+ "parti": "MP",
+"distriktkod": "12800202",
+"namn": "V Sorgenfri, N Folkets Park" 
+},
+{
+ "parti": "MP",
+"distriktkod": "12800203",
+"namn": "V Sorgenfri, Nobelv" 
+},
+{
+ "parti": "MP",
+"distriktkod": "12800206",
+"namn": "Möllevången, V Nobelv" 
+},
+{
+ "parti": "SD",
+"distriktkod": "12800912",
+"namn": "Almgården" 
+},
+{
+ "parti": "MP",
+"distriktkod": "12810209",
+"namn": "Vildanden" 
+},
+{
+ "parti": "C",
+"distriktkod": "13821501",
+"namn": "Köinge-Svartrå-Okome" 
+},
+{
+ "parti": "C",
+"distriktkod": "13822401",
+"namn": "Fagered-Källsjö-Älvsered" 
+},
+{
+ "parti": "C",
+"distriktkod": "13830901",
+"namn": "Sibbarp-Dagsås" 
+},
+{
+ "parti": "C",
+"distriktkod": "13831501",
+"namn": "Valinge-Stamnared" 
+},
+{
+ "parti": "C",
+"distriktkod": "13832201",
+"namn": "Karl Gustav-Grimmared" 
+},
+{
+ "parti": "KD",
+"distriktkod": "14070102",
+"namn": "Fotö" 
+},
+{
+ "parti": "KD",
+"distriktkod": "14070109",
+"namn": "Rörö" 
+},
+{
+ "parti": "KD",
+"distriktkod": "14190301",
+"namn": "Dyrön" 
+},
+{
+ "parti": "KD",
+"distriktkod": "14190302",
+"namn": "Åstol" 
+},
+{
+ "parti": "C",
+"distriktkod": "14380606",
+"namn": "Rölanda" 
+},
+{
+ "parti": "C",
+"distriktkod": "14390407",
+"namn": "Rännelanda-Lerdal-Järbo-Råggärd" 
+},
+{
+ "parti": "C",
+"distriktkod": "14610309",
+"namn": "Bolstad" 
+},
+{
+ "parti": "MP",
+"distriktkod": "14800714",
+"namn": "Centrum, Olofshöjd" 
+},
+{
+ "parti": "MP",
+"distriktkod": "14800811",
+"namn": "Linnéstaden, Övre Masthugget" 
+},
+{
+ "parti": "MP",
+"distriktkod": "14800912",
+"namn": "Majorna, Skytteskogen" 
+},
+{
+ "parti": "MP",
+"distriktkod": "14800913",
+"namn": "Majorna, Kungsladugård" 
+},
+{
+ "parti": "MP",
+"distriktkod": "14800914",
+"namn": "Majorna, Mariaplan" 
+},
+{
+ "parti": "MP",
+"distriktkod": "14800915",
+"namn": "Majorna, Silverkällan" 
+},
+{
+ "parti": "MP",
+"distriktkod": "14800935",
+"namn": "Majorna, Marieberg" 
+},
+{
+ "parti": "MP",
+"distriktkod": "14800936",
+"namn": "Majorna, Godhem" 
+},
+{
+ "parti": "MP",
+"distriktkod": "14800941",
+"namn": "Majorna, Söderlingska ängen" 
+},
+{
+ "parti": "MP",
+"distriktkod": "14800943",
+"namn": "Majorna, Djurgårdsgatan m fl" 
+},
+{
+ "parti": "KD",
+"distriktkod": "14801511",
+"namn": "Södra Skärgården, Donsö-Vrångö" 
+},
+{
+ "parti": "C",
+"distriktkod": "14870417",
+"namn": "Vänersborg 17" 
+},
+{
+ "parti": "C",
+"distriktkod": "17150206",
+"namn": "Frykerud" 
+},
+{
+ "parti": "C",
+"distriktkod": "17660523",
+"namn": "Lysvik" 
+},
+{
+ "parti": "C",
+"distriktkod": "20210401",
+"namn": "Äppelbo" 
+},
+{
+ "parti": "C",
+"distriktkod": "22820517",
+"namn": "Docksta" 
+},
+{
+ "parti": "C",
+"distriktkod": "23091017",
+"namn": "Alsenbygden" 
+},
+{
+ "parti": "C",
+"distriktkod": "23210207",
+"namn": "Mattmar" 
+},
+{
+ "parti": "C",
+"distriktkod": "23210616",
+"namn": "Hallen-Marby" 
+},
+{
+ "parti": "C",
+"distriktkod": "23800946",
+"namn": "Lit 2" 
+},
+{
+ "parti": "C",
+"distriktkod": "23801047",
+"namn": "Häggenås" 
+},
+{
+ "parti": "C",
+"distriktkod": "24090406",
+"namn": "Nysätra-Ånäset" 
+} 
+]

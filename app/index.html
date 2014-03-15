@@ -23,7 +23,7 @@
             <form role="form">
                 <h1>Hur skulle regeringen se ut om ditt kvarter fick bestämma?</h1>
                 <div class="form-group">
-                    <input type="text" class="form-control input-lg" placeholder="Var bor du?" id="search">
+                    <input type="text" class="form-control input-lg" placeholder="Var bor du?">
                 </div>
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary btn-lg btn-block" value="Visa den dystra sanningen" />
@@ -34,18 +34,16 @@
 
 
         <div id="result-view">
-            <div class="regeringen">
-                <h1>Så här hade regeringen kunnat se ut om valdistriktet <strong>valdistriktsnamn</strong> fått bestämma:</h1>
-            </div>
+            <div class="government"></div>
             <div id="search-again">
-                <h3>Landade du fel? Sök igen.</h3>
-                <div id="search-again-form" style="display:none;">
+                <p>Landade du fel? <a href="">Sök igen</a></p>
+                <div id="search-again-form" style="display: none;">
                     <form role="form">
                         <div class="form-group">
-                            <input type="text" class="form-control input-lg" placeholder="Var bor du?" id="prompt">
+                            <input type="text" class="form-control" placeholder="Var bor du?">
                         </div>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-primary btn-lg btn-block" value="Visa mig den dystra sanningen"/>
+                            <input type="submit" class="btn btn-primary" value="Se om det är lika dystert"/>
                         </div>
                     </form>
                 </div>
