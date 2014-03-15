@@ -1,9 +1,8 @@
 #!flask/bin/python
 # -*- coding: utf-8 -*-
 import os
-from flask import Flask, jsonify, abort
+from flask import Flask, jsonify, abort, request
 import json
-import geocoder
 from shapely.geometry import shape, Point
 
 app = Flask(__name__)
@@ -32,18 +31,21 @@ def getVotingDistrict(lat, lng, municipality):
     return False
 
 
-@app.route('/api/v1.0/get-district/<address>', methods=['GET'])
-def get_data(address):
+@app.route('/api/v1.0/get-district/', methods=['GET'])
+def get_data():
     data = {}
+    lat = float(request.args.get('lat'))
+    lng = float(request.args.get('lng'))
+    municipality = request.args.get('municipality')
+
+    data["votingDistrict"] = getVotingDistrict(lat, lng, municipality)
+    return jsonify(data)
+    '''
 #    address = "Tegnergatan 12, Stockholm"
 
     # Geocode address with ArcGIS API
-    #url = "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/find?text=%s&f=pjson" % (urllib.quote_plus(address.encode("utf-8")))
-    
-    # Geocode with Google maps API
-    GOOGLE_API_KEY = "AIzaSyAH2jwRQok8fRjNf5E4Xpn1aYkP2wV8IaU"
-#    url = "https://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false&key=%s" % (urllib.quote_plus(address.encode("utf-8")), GOOGLE_API_KEY)
-    geodata = geocoder.google("%s, Sweden" % address.encode('utf-8'))
+    geodata = geocoder.google("%s, Sweden" % address.encode('utf-8'), key = "AIzaSyAH2jwRQok8fRjNf5E4Xpn1aYkP2wV8IaU")
+    return jsonify({"data": geodata.status })
 #    try:
     if geodata:
         # Get lat-lng coordinates
@@ -62,6 +64,7 @@ def get_data(address):
 #        abort(404) # "Something went wrong when we tried to geocode the address"
     
     return jsonify(data)
+    '''
 
 
 if __name__ == '__main__':
