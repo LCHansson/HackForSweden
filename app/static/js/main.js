@@ -35,6 +35,11 @@ $(function() {
             });
         });
     });
+
+    // Search again
+    $("#search-again h3").click(function() {
+        $("#search-again-form").toggle("slow");
+    }) 
 });
 
 function showResult(districtName, districtGeometry, ministers) {

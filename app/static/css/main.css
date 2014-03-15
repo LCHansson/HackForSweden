@@ -178,3 +178,18 @@ a:active {
 #result-view footer h2 {
     margin: 0px;
 }
+/* Search again 
+====================================================================================*/
+#search-again {
+    position: absolute;
+    left: 10px;
+    bottom: 70px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+}
+#search-again h3 {
+    cursor: pointer;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
