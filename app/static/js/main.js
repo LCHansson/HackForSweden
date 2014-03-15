@@ -70,7 +70,7 @@ function showResult(districtName, districtGeometry, namedMinisters, unnamedMinis
     namedMinisters.forEach(function(minister) {
         var el = $('<div class="minister"></div>');
 
-        el.append('<div class="thumbnail ' + minister.party.toLowerCase() + '"></div>');
+        el.append('<div class="thumbnail bounceIn ' + minister.party.toLowerCase() + '"></div>');
         el.append('<div class="name">' + minister.name + ' (' + minister.party + ')</div>');
 
         // Title
@@ -83,6 +83,10 @@ function showResult(districtName, districtGeometry, namedMinisters, unnamedMinis
         else
             el.addClass('m');
 
+        // Animation
+        var animationLength = Math.random() + 0.5;
+        el.find('.thumbnail').css('animation-duration', animationLength + 's');
+
         el.appendTo('#result-view .government');
     });
 
@@ -93,11 +97,15 @@ function showResult(districtName, districtGeometry, namedMinisters, unnamedMinis
             var seats = minister[prop];
             for (var i = 0; i < seats; i++) {
                 var el = $('<div class="minister s"></div>');
-                el.append('<div class="thumbnail ' + party.toLowerCase() + '"></div>');
+                el.append('<div class="thumbnail bounceIn ' + party.toLowerCase() + '"></div>');
                 el.append('<div class="name">' + party + '</div>');
                 el.appendTo('#result-view .government');
             }
         }
+
+        // Animation
+        var animationLength = Math.random() + 0.5;
+        el.find('.thumbnail').css('animation-duration', animationLength + 's');
     });
 
     // Add a district layer 
