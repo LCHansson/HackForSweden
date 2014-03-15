@@ -42,10 +42,10 @@ provinces = {
 def getVotingDistrict(lat, lng, province):
     # Open geo data for all voting districts in Sweden
     # TODO: Split this file into muicipality files
-    if province in provinces:
+    if False:#province in provinces:
     	fileName = "provinces/%s" % provinces[provinces]
     else:
-    	fileName = "valdistrikt2010.geojson"
+    	fileName = "govt_valdistrikt2010"
     json_data = open('data/%s.geojson' % fileName)
     geodata = json.load(json_data)
 
