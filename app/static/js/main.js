@@ -40,6 +40,7 @@ $(function() {
 function showResult(districtName, districtGeometry, ministers) {
 
     $('#map').addClass('result');
+    map.invalidateSize();
 
     // Set the name
     $('#result-view strong').text(districtName);
@@ -48,7 +49,7 @@ function showResult(districtName, districtGeometry, ministers) {
     ministers.forEach(function(minister) {
         var el = $('<div class="minister"></div>');
 
-        el.append('<div class="thumbnail + ' + minister.party + '"></div>');
+        el.append('<div class="thumbnail ' + minister.party.toLowerCase() + '"></div>');
 
         // Name
         if (minister.name)
