@@ -4,19 +4,18 @@ from flask import Flask, jsonify
 import json
 from geopy import geocoders 
 from shapely.geometry import shape, Point
+
 app = Flask(__name__)
 
-
+# The public start/results page
 @app.route('/')
 def index():
-    return "Hello, World!"
+    return open('index.html').read()
 
-
-data = {}
-
-
+# The geocoding API
 @app.route('/api/v1.0/get-district/<address>', methods=['GET'])
 def get_data(address):
+    data = {}
     json_data = open('data/valdistrikt2010.geojson')
     geodata = json.load(json_data)
 
