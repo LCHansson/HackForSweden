@@ -14,38 +14,41 @@ var dummyMinisters = [{"name": "Fredrik Reinfeldt","party": "M","title": "statsm
 
 $(function() {
     // Sumbit form
-    $('#start-view form').submit(function(event) {
-        event.preventDefault();
-
-        var form = $(this);
-
-        form.find('input[type=submit]').prop("disabled", true);
-        form.find('.spinner').show();
-        var searchString = form.find('input[type=text]').val();
-
-        // Async: geocode address
-        geocoder.query(searchString + ' Sweden', function(error, data) {
-            var result = findBestMatch(data.results);
-            var province = getProvince(result);
-
-            // Async: get election district and government
-            $.get('api/v1.0/get-district/', {"lat": result[0].lat, "lng": result[0].lon, "province": province }, function(data) {
-                var districtName = data.votingDistrict.properties.VDNAMN;
-                var districtGeometry = data.votingDistrict.geometry;
-                var ministers = dummyMinisters;
-
-                // Render results on map
-                showResult(districtName, districtGeometry, ministers);
-            });
-        });
-    });
+    $('#start-view form').submit(submitForm);
+    $('#search-again form').submit(submitForm);    
 
     // Search again
-    $("#search-again a").click(function(event) {
+    $('#search-again a').click(function(event) {
         event.preventDefault();
-        $("#search-again-form").toggle('slow');
+        $('#search-again-form').toggle('slow');
     }) 
 });
+
+function submitForm(event) {
+    event.preventDefault();
+
+    var form = $(this);
+
+    form.find('input[type=submit]').prop("disabled", true);
+    form.find('.spinner').show();
+    var searchString = form.find('input[type=text]').val();
+
+    // Async: geocode address
+    geocoder.query(searchString + ' Sweden', function(error, data) {
+        var result = findBestMatch(data.results);
+        var province = getProvince(result);
+
+        // Async: get election district and government
+        $.get('api/v1.0/get-district/', {"lat": result[0].lat, "lng": result[0].lon, "province": province }, function(data) {
+            var districtName = data.votingDistrict.properties.VDNAMN;
+            var districtGeometry = data.votingDistrict.geometry;
+            var ministers = dummyMinisters;
+
+            // Render results on map
+            showResult(districtName, districtGeometry, ministers);
+        });
+    });
+}
 
 function showResult(districtName, districtGeometry, ministers) {
 
@@ -127,7 +130,7 @@ function findBestMatch(results) {
 function getProvince(results) {
     for (var i=0; i < results.length; i++) {
         var d = results[i];
-        if (d.type == "province") return d.name;
+        if (d.type == 'province') return d.name;
     }
     return null;
 }
