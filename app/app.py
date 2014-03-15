@@ -3,9 +3,7 @@
 import os
 from flask import Flask, jsonify, abort
 import json
-import urllib
-from urllib2 import urlopen
-from geopy import geocoders 
+import geocoder
 from shapely.geometry import shape, Point
 
 app = Flask(__name__)
@@ -40,26 +38,28 @@ def get_data(address):
 #    address = "Tegnergatan 12, Stockholm"
 
     # Geocode address with ArcGIS API
-    url = "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/find?text=%s&f=pjson" % (urllib.quote_plus(address.encode("utf-8")))
+    #url = "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/find?text=%s&f=pjson" % (urllib.quote_plus(address.encode("utf-8")))
+    
+    # Geocode with Google maps API
+    GOOGLE_API_KEY = "AIzaSyAH2jwRQok8fRjNf5E4Xpn1aYkP2wV8IaU"
+#    url = "https://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false&key=%s" % (urllib.quote_plus(address.encode("utf-8")), GOOGLE_API_KEY)
+    geodata = geocoder.google("%s, Sweden" % address.encode('utf-8'))
 #    try:
-    geodata = json.load(urlopen(url))
-    if len(geodata["locations"]) > 0:
-        # The address was found
-        data["searchLocation"] = geodata["locations"][0]
-
+    if geodata:
         # Get lat-lng coordinates
-        cord = data["searchLocation"]["feature"]["geometry"]
+        data["latlng"] = geodata.latlng
 
         # Get municipaltiy name
-        data["municipality"] = data["searchLocation"]["name"].split(",")[-1]
+        data["municipality"] = geodata.city
         
         # Get voting district
-        data["votingDistrict"] = getVotingDistrict(cord["y"], cord["x"], data["municipality"])
+        data["votingDistrict"] = getVotingDistrict(data["latlng"][0], data["latlng"][1], data["municipality"])
+
     else:
         # No address found
         abort(404) # "Was not able to geocode address"
 #    except:
-#        data["error"] = "Something went wrong when we tried to geocode the address"
+#        abort(404) # "Something went wrong when we tried to geocode the address"
     
     return jsonify(data)
 
