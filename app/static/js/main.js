@@ -42,10 +42,11 @@ function submitForm(event) {
         $.get('api/v1.0/get-district/', {"lat": result[0].lat, "lng": result[0].lon, "province": province }, function(data) {
             var districtName = data.votingDistrict.properties.VDNAMN;
             var districtGeometry = data.votingDistrict.geometry;
-            var ministers = dummyMinisters;
+            var namedMinisters = data.votingDistrict.properties.government.namedMinisters;
+            var unnamedMinisters = data.votingDistrict.properties.government.unnamedMinisters;
 
             // Render results on map
-            showResult(districtName, districtGeometry, ministers);
+            showResult(districtName, districtGeometry, namedMinisters, unnamedMinisters);
 
             // Enable button
             form.find('input[type=submit]').prop('disabled', false);
@@ -54,7 +55,7 @@ function submitForm(event) {
     });
 }
 
-function showResult(districtName, districtGeometry, ministers) {
+function showResult(districtName, districtGeometry, namedMinisters, unnamedMinisters) {
 
     // Make sure we start from scratch
     $('#result-view .government').html('<h1>Så här hade regeringen kunnat se ut om valdistriktet <strong>valdistriktsnamn</strong> fått bestämma:</h1>');
@@ -65,31 +66,38 @@ function showResult(districtName, districtGeometry, ministers) {
     // Set the name
     $('#result-view strong').text(districtName);
 
-    // Show the ministers
-    ministers.forEach(function(minister) {
+    // Show the named ministers
+    namedMinisters.forEach(function(minister) {
         var el = $('<div class="minister"></div>');
 
         el.append('<div class="thumbnail ' + minister.party.toLowerCase() + '"></div>');
-
-        // Name
-        if (minister.name)
-            el.append('<div class="name">' + minister.name + ', ' + minister.party + '</div>');
-        else
-            el.append('<div class="name">' + minister.party + '</div>');
+        el.append('<div class="name">' + minister.name + ' (' + minister.party + ')</div>');
 
         // Title
         if (minister.title)
             el.append('<div class="title">' + minister.title + '</div>');
 
         // Size
-        if (minister.title == 'statsminister')
+        if (minister.title == 'Statsminister')
             el.addClass('l');
-        else if (minister.title)
-            el.addClass('m');
         else
-            el.addClass('s');
+            el.addClass('m');
 
         el.appendTo('#result-view .government');
+    });
+
+    // Show the unnamed ministers
+    unnamedMinisters.forEach(function(minister) {
+        for (prop in minister) {
+            var party = prop;
+            var seats = minister[prop];
+            for (var i = 0; i < seats; i++) {
+                var el = $('<div class="minister s"></div>');
+                el.append('<div class="thumbnail ' + party.toLowerCase() + '"></div>');
+                el.append('<div class="name">' + party + '</div>');
+                el.appendTo('#result-view .government');
+            }
+        }
     });
 
     // Add a district layer 
@@ -107,7 +115,7 @@ function showResult(districtName, districtGeometry, ministers) {
         "geometry": districtGeometry
         }]
     };
-    districtLayer = L.geoJson(featureData, {
+    var districtLayer = L.geoJson(featureData, {
         pointToLayer: L.mapbox.marker.style,
         style: function(feature) { return feature.properties; }
     }).addTo(map);
