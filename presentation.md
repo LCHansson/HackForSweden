@@ -1,12 +1,19 @@
 ### Intro
 
 - Tänka annorlunda.
-- __Personer och kvarter__ istället __pajer och diagram__.
-- 
+- **Personer och kvarter** istället **pajer och diagram**.
+
 
 ### Distrikt att zooma in på:
 
+- Exempel ur publiken
 - Malmvägen, Kiruna
+- Framgången, Göteborg 
+- Smedjegatan Malmö (M+MP)
+
+### Utvecklingsmöjligheter:
+
+-
 
 ### SD-karta:
 
