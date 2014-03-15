@@ -3,7 +3,6 @@
 import os
 from flask import Flask, jsonify, abort, request
 import json
-import geocoder
 from shapely.geometry import shape, Point
 
 app = Flask(__name__)
