@@ -12,7 +12,9 @@ var map = L.mapbox.map('map', 'hisekaldma.hh4jiokf', {
 var geocoder = L.mapbox.geocoder('hisekaldma.hh4jiokf');
 
 $(function() {
-    $('#start-view button').click(function() {
+    // Sumbit form
+    $('#start-view form').submit(function(event) {
+        event.preventDefault();
         showPosition($('#start-view input').val());
     });
 });
@@ -50,13 +52,17 @@ function showResults(lat, lng, municipality) {
 }
 
 function showPosition(searchString) {
+    // Geocode address
     geocoder.query(searchString + ' Sweden', function(error, data) {
         var result = findBestResult(data.results);
+
+        // Render results on map
         showResults(result[0].lat, result[0].lon, result[0].name);
     });
 }
 
 function findBestResult(results) {
+    // Pick address in one of these cities if possible
     var cities = ['Stockholm', 'Goteborg', 'Malmo'];
 
     for (var i = 0; i < cities.length; i++) {
