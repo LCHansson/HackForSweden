@@ -1,13 +1,17 @@
 /*
- background = #404D55
- yellow1    = #D69616
- yellow2    = #BA7A14
+ background = #404d55
+ yellow1    = #d69616
+ yellow2    = #ba7a14
  yellow3    = #895928
- white      = #E7D8CE
+ white      = #e7d8cE
  */
 
 /* Base
    ========================================================================== */
+
+body {
+    font-family: 'Roboto Slab', sans-serif;
+}
 
 #map {
     position: absolute;
@@ -16,17 +20,56 @@
     bottom: 0;
     top: 0;
     z-index: -1;
+    background: #404d55;
+}
+
+.btn-primary {
+    background: #d69616;
+    border: none;
+}
+
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus {
+    background: #ba7a14;
+    outline: none;
+}
+
+.form-control {
+    border: none;
+}
+
+h1 {
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.2;
+    text-rendering: optimizeLegibility;
+}
+
+h2 {
+    font-size: 20px;
+    color: #fff;
+}
+
+a {
+    color: #d69616;
+}
+a:hover,
+a:active {
+    color: #ba7a14;
 }
 
 /* Start view
    ========================================================================== */
 
-#start-view {
-}
-
 #start-view form {
     max-width: 400px;
     margin: 10% auto;
+}
+
+#start-view h1 {
+    color: #fff;
+    margin-bottom: 20px;
 }
 
 /* Result view
@@ -38,8 +81,19 @@
 
 #result-view .regeringen {
     max-width: 600px;
-    padding: 10px;
+    padding: 20px;
     margin: 10% auto;
+    background: #fff;
+    border-radius: 5px;
+}
+
+#result-view .regeringen h1 {
+    font-size: 24px;
+    margin: 0px;
+}
+
+#result-view .regeringen h1 strong {
+    color: #d69616;
 }
 
 #result-view footer {
@@ -47,7 +101,12 @@
     left: 0;
     right: 0;
     bottom: 0;
-    height: 100px;
-    padding: 10px;
+    height: 70px;
+    padding: 20px;
     text-align: center;
+    background: #404d55;
+}
+
+#result-view footer h2 {
+    margin: 0px;
 }
