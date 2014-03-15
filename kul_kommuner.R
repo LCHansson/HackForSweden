@@ -53,7 +53,7 @@ for (i in 1:length(geoData$features)) {
     )))
 }
 
-
+writeLines(toJSON(oddDistricts), "app/data/oddDistricts.json")
 
 
 
