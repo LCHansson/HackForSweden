@@ -11,11 +11,14 @@ require(data.table)
 
 
 ## Read data
-# system.time({
-#   geoData = fromJSON("app/data/valdistrikt2010.geojson")
-# })
+system.time({
+  geoData = fromJSON("app/data/valdistrikt2010.geojson")
+})
 # geoDataBk <- copy(geoData)
-geoData <- copy(geoDataBk)
+# geoData <- copy(geoDataBk)
+
+## TEmporary workaround: Subset file
+# geoData$features <- geoData$features[109]
 
 electionData <- data.table(read.table(
   file = "data/valresultat/slutligt_valresultat_valdistrikt_R.skv",
@@ -61,7 +64,7 @@ system.time({
 })
 
 ## Write back to the geoJSON file
-# cat(toJSON(geoData$features[[1]], digits = 7))
+# cat(toJSON(geoData, digits = 7))
 
 system.time(
   writeLines(toJSON(geoData, digits = 7), "app/data/govt_valdistrikt2010.geojson")
