@@ -17,7 +17,9 @@ $(function() {
     $('#start-view form').submit(function(event) {
         event.preventDefault();
 
-        var searchString = $('#start-view input').val();
+        $('#start-view .btn-primary').prop("disabled", true);
+        $('#start-view .spinner').show();
+        var searchString = $('#start-view #search').val();
 
         // Async: geocode address
         geocoder.query(searchString + ' Sweden', function(error, data) {
@@ -35,6 +37,11 @@ $(function() {
             });
         });
     });
+
+    // Search again
+    $("#search-again h3").click(function() {
+        $("#search-again-form").toggle("slow");
+    }) 
 });
 
 function showResult(districtName, districtGeometry, ministers) {

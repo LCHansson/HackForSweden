@@ -45,7 +45,7 @@ def getVotingDistrict(lat, lng, province):
     if False:#province in provinces:
     	fileName = "provinces/%s" % provinces[provinces]
     else:
-    	fileName = "valdistrikt2010"
+    	fileName = "govt_valdistrikt2010"
     json_data = open('data/%s.geojson' % fileName)
     geodata = json.load(json_data)
 
