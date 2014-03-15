@@ -1,0 +1,45 @@
+/* Base
+   ========================================================================== */
+
+#map {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: -1;
+}
+
+/* Start view
+   ========================================================================== */
+
+#start-view {
+}
+
+#start-view form {
+    max-width: 400px;
+    margin: 10% auto;
+}
+
+/* Result view
+   ========================================================================== */
+
+#result-view {
+    display: none;
+}
+
+#result-view .regeringen {
+    max-width: 600px;
+    padding: 10px;
+    margin: 10% auto;
+}
+
+#result-view footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100px;
+    padding: 10px;
+    text-align: center;
+}
