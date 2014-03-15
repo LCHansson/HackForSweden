@@ -18,16 +18,20 @@
         <div id="map"></div>
 
         <div id="start-view">
-            <div class="content">
+            <form role="form">
                 <h1>Hur skulle regeringen se ut om ditt kvarter fick bestämma?</h1>
-                <input type="text" placeholder="Var bor du?" id="prompt" />
-                <input type="submit" name="Visa mig den dystra sanningen" />
-            </div>
+                <div class="form-group">
+                    <input type="text" class="form-control input-lg" placeholder="Var bor du?" id="prompt" />
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary btn-lg btn-block">Visa mig den dystra sanningen</button>
+                </div>
+            </form>
         </div>
 
         <div id="result-view">
             <div class="popup">
-                <h1>Så här hade Sveriges regering sett ut om valdistriktet <b>Enskede Västra 3</b> fått bestämma:</h1>
+                <h1>Så här hade Sveriges regering sett ut om valdistriktet <strong>Enskede Västra 3</strong> fått bestämma:</h1>
             </div>
             <footer>
                 <h2>Dela på Twitter och Facebook</h2>

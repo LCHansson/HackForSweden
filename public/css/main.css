@@ -16,8 +16,14 @@
 #start-view {
 }
 
+#start-view form {
+    max-width: 400px;
+    margin: 10% auto;
+}
+
 /* Result view
    ========================================================================== */
 
 #result-view {
+    display: none;
 }
