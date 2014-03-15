@@ -1,7 +1,7 @@
 #!flask/bin/python
 # -*- coding: utf-8 -*-
 import os
-from flask import Flask, jsonify
+from flask import Flask, jsonify, abort
 import json
 import urllib
 from urllib2 import urlopen
@@ -57,7 +57,7 @@ def get_data(address):
         data["votingDistrict"] = getVotingDistrict(cord["y"], cord["x"], data["municipality"])
     else:
         # No address found
-        data["error"] = "Was not able to geocode address"
+        abort(404) # "Was not able to geocode address"
 #    except:
 #        data["error"] = "Something went wrong when we tried to geocode the address"
     
