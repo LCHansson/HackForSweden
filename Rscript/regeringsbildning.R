@@ -106,6 +106,7 @@ findGovernment <- function(seatList) {
   # its coalition preferences
   coalition = list()
   
+  
   for (partner in c(biggestParty, coalitionPreferences[[biggestParty]])) {
     coalition = append(coalition, seatList[partner])
     coalitionSeats = sum(unlist(coalition))
@@ -119,7 +120,7 @@ findGovernment <- function(seatList) {
     return(coalition)
   } else {
     
-    secondParty = names(which.max(seatList[names(seatList) != secondParty]))
+    secondParty = names(which.max(seatList[names(seatList) != biggestParty]))
     
     coalition = list()
     
@@ -137,12 +138,133 @@ findGovernment <- function(seatList) {
   if (coalitionSeats >= majorityThreshhold) {
     return(coalition)
   } else {
-    warning ("Could not find a successful government coalition.")
-    return(NULL)
+    warning ("Could not find a successful government coalition. Forming fascist government.")
+    coalition = list(seatList["M"], seatList["FP"], seatList["KD"], seatList["C"], seatList["SD"])
+    coalitionSeats = sum(unlist(coalition))
   }
 }
 
-
+## FIND MINISTERS
+#' Once the coalition formation has been determined, it is time to elect ministers.
+#' 
+#' Seats in the government are distributed the same way as seats in parliament;
+#' by using Saint-Laguë.
+#' 
+#' Once the number of seats by party have been determined, we appoint certain persons
+#' for key minister offices. The rest of the seats are assigned to a party but
+#' we do not appoint specific person.
+findMinisters <- function(govt, seats = 20) {
+  
+  # Define potential persons to be appointed to each minister
+  potentialMinisters = list(
+    "Statsminister" = list(
+      M = "Fredrik Reinfeldt",
+      FP = "Jan Björklund",
+      KD = "Göran Hägglund",
+      C = "Annie Lööf",
+      S = "Stefan Löfven",
+      V = "Jonas Sjöstedt",
+      MP = "Gustav Fridolin",
+      SD = "Jimmie Åkesson"
+    ),
+    "Utrikesminister" = list(
+      M = "Carl Bildt",
+      FP = "Cecilia Wikström",
+      KD = "Göran Hägglund",
+      C = "Fredrick Federley",
+      S = "Jan Eliasson",
+      V = "Hans Linde",
+      MP = "Bodil Ceballos",
+      SD = "Kent Ekeroth"
+    ),
+    "Finansminister" = list(
+      M = "Anders Borg",
+      FP = "Birgitta Olsson",
+      KD = "Anders Wijkman",
+      C = "Martin Ådahl",
+      S = "Magdalena Andersson",
+      V = "Ulla Andersson",
+      MP = "Åsa Romson",
+      SD = "Björn Söder"
+    ),
+    "Utbildningsminister" = list(
+      M = "Tomas Tobé",
+      FP = "Jan Björklund",
+      KD = "Göran Hägglund",
+      C = "Ulrika Carlsson",
+      S = "Ibrahim Baylan",
+      V = "Rossana Dinamarca",
+      MP = "Mats Pertoft",
+      SD = "Richard Jomshof"
+    )
+  )  
+  
+  # The distribution of government seats is determined by Saint-Laguë.
+  seatList = list(S=0, V=0, MP=0, M=0, FP=0, KD=0, C=0, SD=0)
+  
+  for (i in 1:seats) {
+    seatWinner = which.max(sapply(names(govt), function(parti) {
+      result = govt[[parti]]/(1 + 2 * seatList[[parti]])
+      return(result)
+    }))
+    seatList[names(seatWinner)] = seatList[[names(seatWinner)]] + 1
+  }
+  
+  seatList = seatList[seatList != 0]
+  
+  # Appoint ministers by party order
+  appointmentOrder = order(sapply(seatList, function(i) return(i)), decreasing = TRUE)
+  appointmentOrder = rep(appointmentOrder, 20)
+  
+  ministerList = list()
+  count = 0
+  
+  # Appoint named ministers
+  #   for (office in names(potentialMinisters)) {
+  #     count = count + 1
+  #   appointmentParty = names(seatList[appointmentOrder[count]])
+  
+  ministerList = append(
+    ministerList,
+    list(namedMinisters = lapply(names(potentialMinisters), function(seatName) {
+      count <<- count + 1
+      appointmentParty = names(seatList[appointmentOrder[count]])
+      
+      list(
+        name = potentialMinisters[[seatName]][[appointmentParty]],
+        party = appointmentParty,
+        title = seatName
+      )
+    })
+    ))
+  #   }
+  
+  # Assign remaining cabinet seats to a party
+  appointedSeats = as.list(table(
+    sapply(ministerList$namedMinisters, function(i) return(i$party))
+  ))
+  
+  ministerList = append(
+    ministerList,
+    list(unnamedMinisters = lapply(names(seatList), function(i) {
+      value = list(seatList[[i]] - appointedSeats[[i]])
+      names(value) = i
+      return(value)
+    }))
+  )
+  
+#   for (seat in 1:(seats-length(potentialMinisters))) {
+#     count = count + 1
+#     
+#     appointmentParty = names(seatList[appointmentOrder[count]])
+#     ministerList = append(
+#       ministerList,
+#       list(list(party = appointmentParty))
+#     )
+#   }
+  
+  return(ministerList)
+}
 
 
 
