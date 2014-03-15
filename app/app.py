@@ -35,8 +35,8 @@ def getVotingDistrict(lat, lng, municipality):
 @app.route('/api/v1.0/get-district/', methods=['GET'])
 def get_data():
     data = {}
-    lat = request.args.get('lat')
-    lng = request.args.get('lng')
+    lat = float(request.args.get('lat'))
+    lng = float(request.args.get('lng'))
     municipality = request.args.get('municipality')
 
     data["votingDistrict"] = getVotingDistrict(lat, lng, municipality)

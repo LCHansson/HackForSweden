@@ -17,27 +17,29 @@ $(function() {
     });
 });
 
-function showResults(searchString) {
-    $.get('api/v1.0/get-district/' + encodeURIComponent(searchString), function(data) {
-        console.log(data);
+function showResults(lat, lng, municipality) {
+    $.get('api/v1.0/get-district/', {"lat": lat, "lng": lng, "municipality": municipality }, function(data) {
+        console.log(data)
         var name = data.votingDistrict.properties.VDNAMN;
-        var coordinates = data.latlng;
+        var coordinates = [lat, lng];
 
         $('#start-view').hide();
         $('#result-view').show();
         $('#result-view strong').text(name);
         map.setView(coordinates, resultZoom, { animate: true });
-    });
+    })
 }
 
 function showPosition(searchString) {
     geocoder.query(searchString + ' Sweden', function(error, data) {
         var result = findBestResult(data.results);
-        var coordinates = [result[0].lat, result[0].lon];
+        console.log(result);
+        showResults(result[0].lat, result[0].lon, result[0].name);
+//        var coordinates = [result[0].lat, result[0].lon];
+//       $('#start-view').hide();
+//        $('#result-view').show();
 
-        $('#start-view').hide();
-        $('#result-view').show();
-        map.setView(coordinates, resultZoom, { animate: true });
+//        map.setView(coordinates, resultZoom, { animate: true });
     });
 }
 
