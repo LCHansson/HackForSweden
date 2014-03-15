@@ -29,7 +29,7 @@ function submitForm(event) {
 
     var form = $(this);
 
-    form.find('input[type=submit]').prop("disabled", true);
+    form.find('input[type=submit]').prop('disabled', true);
     form.find('.spinner').show();
     var searchString = form.find('input[type=text]').val();
 
@@ -46,6 +46,10 @@ function submitForm(event) {
 
             // Render results on map
             showResult(districtName, districtGeometry, ministers);
+
+            // Enable button
+            form.find('input[type=submit]').prop('disabled', false);
+            form.find('.spinner').hide();
         });
     });
 }
