@@ -39,6 +39,8 @@ $(function() {
 
 function showResult(districtName, districtGeometry, ministers) {
 
+    $('#map').addClass('result');
+
     // Set the name
     $('#result-view strong').text(districtName);
 
@@ -76,9 +78,10 @@ function showResult(districtName, districtGeometry, ministers) {
             "type": "Feature",
             "properties": {
                 // Set style of layer
-                "color": "#895928",
+                "color": "#d69616",
+                "opacity": 1, 
                 "fillColor": "#d69616",
-                "fillOpacity": 0.4
+                "fillOpacity": 0.5
             },
         "geometry": districtGeometry
         }]
