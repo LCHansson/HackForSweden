@@ -28,6 +28,7 @@ $(function() {
 
             // Async: get election district and government
             $.get('api/v1.0/get-district/', {"lat": result[0].lat, "lng": result[0].lon, "province": province }, function(data) {
+                console.log(data)
                 var districtName = data.votingDistrict.properties.VDNAMN;
                 var districtGeometry = data.votingDistrict.geometry;
                 var ministers = dummyMinisters;
