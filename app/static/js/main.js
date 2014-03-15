@@ -1,6 +1,6 @@
 var startCoord = [63, 18];
 var startZoom = 5;
-var resultZoom = 8;
+var resultZoom = 15;
 var map = L.mapbox.map('map', 'hisekaldma.hh4jiokf')
     .setView(startCoord, startZoom);
 
@@ -11,7 +11,17 @@ $(function() {
 });
 
 function showResults(searchString) {
-    $('#start-view').hide();
-    $('#result-view').show();
-    map.setView([59, 18], resultZoom, { animate: true });
+    $.get('api/v1.0/get-district/' + encodeURIComponent(searchString), function(data) {
+        console.log(data);
+        var name = data.votingDistrict.properties.VDNAMN;
+        var coordinates = [
+            data.searchLocation.feature.geometry.y,
+            data.searchLocation.feature.geometry.x
+        ];
+
+        $('#start-view').hide();
+        $('#result-view').show();
+        $('#result-view strong').text(name);
+        map.setView(coordinates, resultZoom, { animate: true });
+    });
 }
