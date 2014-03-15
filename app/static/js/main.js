@@ -56,6 +56,9 @@ function submitForm(event) {
 
 function showResult(districtName, districtGeometry, ministers) {
 
+    // Make sure we start from scratch
+    $('#result-view .government').html('<h1>Så här hade regeringen kunnat se ut om valdistriktet <strong>valdistriktsnamn</strong> fått bestämma:</h1>');
+
     $('#map').addClass('result');
     map.invalidateSize();
 
@@ -86,7 +89,7 @@ function showResult(districtName, districtGeometry, ministers) {
         else
             el.addClass('s');
 
-        el.appendTo('#result-view .regeringen');
+        el.appendTo('#result-view .government');
     });
 
     // Add a district layer 

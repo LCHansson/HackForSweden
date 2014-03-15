@@ -132,7 +132,7 @@ a:active {
     display: none;
 }
 
-#result-view .regeringen {
+#result-view .government {
     position: absolute;
     right: 0;
     top: 0;
@@ -143,13 +143,13 @@ a:active {
     overflow: auto;
 }
 
-#result-view .regeringen h1 {
+#result-view .government h1 {
     font-size: 24px;
     margin: 0px 0px 20px 0px;
     text-align: center;
 }
 
-#result-view .regeringen h1 strong {
+#result-view .government h1 strong {
     color: #d69616;
 }
 
