@@ -13,6 +13,6 @@ Kvartersregeringen uses __Flask__ as a backend to parse GeoJSON find the right e
 
 ### Update with new data
 
-- R!
-- Run __add-meta-data-and-split.py__ 
-- 
+- R!?
+- Modify and run __add-meta-data-and-split.py__ to split the GeoJSON file into provinces.
+- Deploy?!
