@@ -51,7 +51,7 @@
             <footer>
                 <h2>Dela med dina kompisar
                     <a href="https://twitter.com/share" class="twitter-share-button" data-lang="sv" data-url="http://www.kvartersregeringen.se" data-text="Hur skulle regeringen se ut om ditt kvarter fick bestämma?">Tweet</a>
-                    <a href="">Facebook</a>
+                    <div class="fb-share-button" data-href="http://www.kvartersregeringen.se" data-type="button_count"></div>
                 </h2>
             </footer>
         </div>
@@ -64,5 +64,15 @@
 
         <!-- Twitter -->
         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+        <!-- Facebook -->
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=179619212102520";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
     </body>
 </html>
