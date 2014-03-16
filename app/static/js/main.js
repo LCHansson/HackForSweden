@@ -21,7 +21,15 @@ $(function() {
     $('#search-again a').click(function(event) {
         event.preventDefault();
         $('#search-again-form').toggle('slow');
-    }) 
+    });
+
+    // About view
+    $('#result-view .about').click(function() {
+        $('#about-view').show();
+    })
+    $('#about-view .close').click(function() {
+        $('#about-view').hide();
+    });
 });
 
 function submitForm(event) {

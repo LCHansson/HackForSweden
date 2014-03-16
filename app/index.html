@@ -20,7 +20,7 @@
         <div id="map"></div>
 
         <div id="start-view">
-            <form role="form">
+            <form role="form" class="box">
                 <div class="logo">
                     <svg version="1.1" width="100" height="100">
                         <circle fill="#FFFFFF" cx="50" cy="50" r="50" />
@@ -58,11 +58,28 @@
                 </div>
             </div>
             <footer>
-                <h2>Dela med dina kompisar på <a href="">Twitter</a> och <a href="">Facebook</a>
+                <h2 class="share">Dela med dina kompisar på <a href="">Twitter</a> och <a href="">Facebook</a>
                     <!--a href="https://twitter.com/share" class="twitter-share-button" data-lang="sv" data-url="http://kvartersregeringen.se" data-text="Hur skulle regeringen se ut om ditt kvarter fick bestämma?">Tweet</a>
                     <div class="fb-like" data-href="http://kvartersregeringen.se" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div-->
                 </h2>
+                <button class="btn btn-default about">Om Kvartersregeringen</button>
             </footer>
+        </div>
+
+        <div id="about-view" class="box">
+            <button class="close">&times;</button>
+            <h1>Kvartersregeringen</h1>
+
+            <p>Kvartersregeringen skapades av <a href="https://twitter.com/LCHansson">Love Hansson</a>, <a href="https://twitter.com/jensfinnas">Jens Finnäs</a> och <a href="https://twitter.com/hisekaldma">Jonathan Hise Kaldma</a> under hackathonet <a href="http://hackforsweden.se/">Hack for Sweden</a> den 15-16 mars 2014.</p>
+
+            <h2>Hur har vi räknat?</h2>
+
+            <p>När du söker på en adress i Sverige letar vi upp det <a href="http://www.val.se/det_svenska_valsystemet/allmant_om_val/valgeografi/index.html">valdistrikt</a> adressen ligger i. Vi tar sedan reda på hur invånarna i valdistriktet röstade i senaste riksdagsvalet och simulerar en möjlig regering.</p>
+
+            <p>För att simulera regeringen börjar vi med att räkna ut vad mandatfördelningen i Sveriges riksdag skulle bli enligt de regler som gäller: 4%-spärren och <a href="http://www.riksdagen.se/sv/Sa-funkar-riksdagen/Demokrati/Val-till-riksdagen/Sa-fordelas-platserna-i-riksdagen/">den jämkade uddatalsmetoden</a>.</p>
+
+            <p>Sedan räknar vi ut vilka partier som skulle kunna bilda regeringen. Först får det största partiet en chans att bilda regering, antingen själva eller i koalition med andra. Om det inte lyckas går turen vidare till det näst största partiet, osv. Alla partier vill dock inte regera med alla andra partier. Partierna har en preferensordning för vilka andra partier de helst skapar koalition med, och vissa partier kan inte alls tänka sig att regera tillsammans. Vänsterpartiet och Sverigedemokraterna skulle till exempel aldrig kunna sitta i samma regering.</p>
+            <p><a href="https://github.com/LCHansson/Kvartersregeringen/blob/master/doc/regeringen.md">Läs mer om hur vi tänkt</a></p>
         </div>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>

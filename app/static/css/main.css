@@ -39,6 +39,18 @@ body {
     outline: none;
 }
 
+.btn-default {
+    background: none;
+    color: #fff;
+}
+
+.btn-default:hover,
+.btn-default:active,
+.btn-default:focus {
+    background: #fff;
+    border-color: #fff;
+}
+
 .btn:disabled {
     opacity: 1;
     color: rgba(255,255,255,0.3);
@@ -65,6 +77,23 @@ a {
 a:hover,
 a:active {
     color: #ba7a14;
+}
+
+.box {
+    color: #fff;
+    background: #404d55;
+    padding: 20px;
+    border-radius: 8px;
+    border: 2px solid #fff;
+    font-weight: 100;
+    line-height: 1.5;
+}
+
+.close {
+    color: #fff;
+    text-shadow: none;
+    font-size: 32px;
+    opacity: 1;
 }
 
 .spinner {
@@ -109,10 +138,6 @@ a:active {
 #start-view form {
     max-width: 440px;
     margin: 10% auto;
-    background: #404d55;
-    padding: 20px;
-    border-radius: 8px;
-    border: 2px solid #fff;
 }
 
 #start-view form .form-group:last-child {
@@ -230,6 +255,7 @@ a:active {
 
 #result-view .minister .title {
     text-align: center;
+    font-weight: 300;
 }
 
 #result-view footer {
@@ -243,13 +269,18 @@ a:active {
     background: #404d55;
 }
 
-#result-view footer h2 {
+#result-view footer .share {
     margin: 0px;
+    float: left;
 }
 
 #result-view footer .twitter-share-button {
     margin-left: 30px;
     vertical-align: bottom;
+}
+
+#result-view .about {
+    float: right;
 }
 
 /* Search again 
@@ -264,6 +295,18 @@ a:active {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     font-size: 18px;
+}
+
+/* About view
+   ========================================================================== */
+
+#about-view {
+    display: none;
+    position: absolute;
+    left: 5%;
+    right: 5%;
+    top: 5%;
+    max-width: 500px;
 }
 
 /* Animations
