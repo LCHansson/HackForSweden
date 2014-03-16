@@ -13,6 +13,8 @@ Kvartersregeringen uses __Flask__ as a backend to parse GeoJSON find the right e
 
 ### Update with new data
 
-- R!?
+- Load election data and run simulations in R. Write the results of the simulation to the geoJSON file.
+  - Methods are stored in `regeringsbildning.R`.
+  - The code for loading data and running simulations is stored in `regering tillGeoJSON.R`.
 - Modify and run __add-meta-data-and-split.py__ to split the GeoJSON file into provinces.
 - Deploy?!
