@@ -1,4 +1,20 @@
 Kvartersregeringen
 ========
 
-Kvartersregeringen är ett roligt och engagerande sätt att visualisera valdata. Istället för abstrakta procentsatser och pajdiagram fokuserar vi på något som alla kan ta till sig: vilka personer skulle sitta i regeringen om just ditt kvarter fått bestämma. Du skriver in din adress, och vi tar reda på vilket valdistrikt du tillhör. Utifrån det senaste valresultatet för det valdistriktet räknar vi ut en tänkbar regeringssammansättning som vi visar tillsammans med en karta över ditt valdistrikt. Du kan kolla andra valdistrikt och dela med dina kompisar. Enkelt, roligt och informativt.
+### Installation
+
+Kvartersregeringen uses __Flask__ as a backend to parse GeoJSON find the right election districts and __MapBox__ to visualize the results. 
+
+- Install __Virtualenv__: `$ sudo easy_install virtualenv`
+- Install [__pip__](http://www.pip-installer.org/en/latest/installing.html)
+- Init your personal environment with `$ virtualenv env --no-site-packages` and `source env/bin/activate`
+- Install requirements: `$ pip install -r requirements.txt`
+- Start server: `$ python app.py`
+
+### Update with new data
+
+- Load election data and run simulations in R. Write the results of the simulation to the geoJSON file.
+  - Methods are stored in `regeringsbildning.R`.
+  - The code for loading data and running simulations is stored in `regering tillGeoJSON.R`.
+- Modify and run __add-meta-data-and-split.py__ to split the GeoJSON file into provinces.
+- Deploy?!
