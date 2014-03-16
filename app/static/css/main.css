@@ -3,7 +3,6 @@
  yellow1    = #d69616
  yellow2    = #ba7a14
  yellow3    = #895928
- white      = #e7d8cE
  */
 
 /* Base
@@ -108,8 +107,20 @@ a:active {
    ========================================================================== */
 
 #start-view form {
-    max-width: 400px;
+    max-width: 440px;
     margin: 10% auto;
+    background: #404d55;
+    padding: 20px;
+    border-radius: 8px;
+    border: 2px solid #fff;
+}
+
+#start-view form .form-group:last-child {
+    margin-bottom: 0px;
+}
+
+#start-view .logo {
+    text-align: center;
 }
 
 #start-view h1 {
