@@ -43,8 +43,9 @@ findSeats <- function(voteList, threshold = 4, seats = 349) {
   
   
   # The number of seats are distributed among the remaining parties using
-  # Sainte-Laguë
+  # Saint-Laguë
   mandateList = list(S=0, V=0, MP=0, M=0, FP=0, KD=0, C=0, SD=0, FI=0, PP=0, SPI=0, OVR=0, BL=0, OG=0)
+  count = 0
   
   for (i in 1:seats) {
     seatWinner = which.max(sapply(names(partiResults), function(parti) {
@@ -95,8 +96,8 @@ findGovernment <- function(seatList) {
     SD = c("M","KD","C","S")
   )
   
-  # First we need to determine the majority threshold.
   numSeats = sum(sapply(seatList, sum))
+  # First we need to determine the majority threshold by looking at the number of seats
   majorityThreshhold = floor(numSeats/2) + 1
   
   # The biggest party is fetched from the seat List
@@ -153,7 +154,7 @@ findGovernment <- function(seatList) {
 #' 
 #' Once the number of seats by party have been determined, we appoint certain persons
 #' for key minister offices. The rest of the seats are assigned to a party but
-#' we do not appoint specific person.
+#' we do not appoint specific persons to the offices.
 findMinisters <- function(govt, seats = 20) {
   
   # Define potential persons to be appointed to each minister
