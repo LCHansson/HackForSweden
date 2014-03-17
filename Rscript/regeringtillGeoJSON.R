@@ -65,6 +65,7 @@ system.time({
     # Find government
     voteList = electionData[VDNAMN == geoData$features[[i]]$properties[[1]]]
     seats = findSeats(voteList)
+    
     govt = findGovernment(seats)
     if (is.null(govt))
       next()
@@ -74,7 +75,10 @@ system.time({
     # Write government as tuples to geoData
     geoData$features[[i]]$properties = append(
       geoData$features[[i]]$properties,
-      c(government = list(ministers))
+      c(
+        government = list(ministers),
+        seatsInParliament = list(seats)
+      )
     )
   }
 })
@@ -89,4 +93,3 @@ if (DEBUG)
 else
   writeLines(toJSON(geoData, digits = 7), "app/data/govt_valdistrikt2010.geojson")
 )
-# toJSON(geoData)
