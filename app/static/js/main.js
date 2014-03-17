@@ -21,6 +21,20 @@ $(function() {
     // Sumbit form
     $('form').submit(submitForm);
 
+    // Start view: Show more
+    $("#start-view .show").click(function() {
+        $("#start-view .list-of-examples").toggle("slow");
+    })
+
+    // Start view: Click show more link
+    $("#start-view .list-of-examples a").click(function(event) {
+        event.preventDefault();
+        var $el = $(this);
+        $('form input[type=text]').val($el.text());
+        $('form').submit();
+
+    })
+
     // Search again
     $('#search-again a').click(function(event) {
         event.preventDefault();

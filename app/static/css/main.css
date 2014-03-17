@@ -184,6 +184,17 @@ a:active {
     float: right;
 }
 
+#start-view .examples {
+    font-size: 85%;
+}
+
+#start-view .show {
+    cursor: pointer;
+    text-align: center;
+}
+
+
+
 /* Result view
    ========================================================================== */
 
