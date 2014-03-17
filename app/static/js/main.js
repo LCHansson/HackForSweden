@@ -13,9 +13,13 @@ var geocoder = L.mapbox.geocoder('hisekaldma.hh4jiokf');
 var districtLayer = null;
 
 $(function() {
+    // Autocomplete
+    $('form input[type=text]').autocomplete({
+      source: suggestAddresses
+    });
+
     // Sumbit form
-    $('#start-view form').submit(submitForm);
-    $('#search-again form').submit(submitForm);    
+    $('form').submit(submitForm);
 
     // Search again
     $('#search-again a').click(function(event) {
@@ -50,7 +54,7 @@ function submitForm(event) {
             form.find('.spinner').hide();
         }
 
-        var result = findBestMatch(data.results);
+        var result = data.results[0];
         var province = getProvince(result);
 
         // Async: get election district and government
@@ -164,22 +168,19 @@ function showResult(districtName, districtGeometry, namedMinisters, unnamedMinis
     $('#result-view').show();
 }
 
-function findBestMatch(results) {
+function isInSweden(result) {
+    return result[result.length - 1].name.indexOf('Sweden') != -1;
+}
 
-    // Pick address in one of these cities if possible
-    var cities = ['Stockholm', 'Göteborg', 'Malmö'];
-
-    for (var i = 0; i < cities.length; i++) {
-        for (var j = 0; j < results.length; j++) {
-            for (var k = 0; k < results[j].length; k++) {
-                if (results[j][k] && results[j][k].name.indexOf(cities[i]) != -1) {
-                    return results[j];
-                }
-            };
-        }
-    }
-
-    return results[0];
+function suggestAddresses(request, response) {
+    geocoder.query(request.term + ' Sweden', function(error, data) {
+        var suggestions = [];
+        data.results.forEach(function(result) {
+            if (result[0] && result[1] && isInSweden(result))
+                suggestions.push(result[0].name + ', ' + result[1].name);
+        });
+        response(suggestions);
+    });
 }
 
 function getProvince(results) {

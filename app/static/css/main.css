@@ -132,6 +132,21 @@ a:active {
     to {transform: rotate(359deg);}
 }
 
+/* Automcomplete
+   ========================================================================== */
+.ui-autocomplete {
+    background: #fff;
+    border-radius: 5px;
+    padding: 0px;
+    overflow: hidden;
+}
+.ui-menu .ui-menu-item a.ui-state-focus,
+.ui-menu .ui-menu-item a.ui-state-active {
+    color: #fff;
+    margin: 0px;
+    background: #d69616;
+}
+
 /* Start view
    ========================================================================== */
 
