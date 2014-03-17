@@ -23,10 +23,6 @@ body {
     background: #404d55;
 }
 
-#map.result {
-    right: 600px;
-}
-
 .btn-primary {
     background: #d69616 !important;
     border: none;
@@ -196,10 +192,44 @@ a:active {
     right: 0;
     top: 0;
     bottom: 0;
-    width: 600px;
+    width: 40%;
     padding: 20px;
     background: #fff;
     overflow: auto;
+}
+
+#map.result {
+    right: 40%;
+}
+
+@media (max-width: 768px) {
+    #map.result {
+        right: 0;
+        height: 200px;
+    }
+    #result-view .government {
+        font-weight: 13px;
+        position: static;
+        margin-top: 200px;
+        width: 100%;
+        height: auto;
+        clear: both;
+        font-size: 
+    }
+    #search-again {
+        display: none;
+    }
+    #result-view footer {
+        position: static !important;
+        clear: both;
+        height: 130px !important;
+    }
+    #result-view footer .about {
+        clear: both;
+        float: none;
+        width: 80%;
+        margin-top: 20px;
+    }
 }
 
 #result-view .government h1 {
