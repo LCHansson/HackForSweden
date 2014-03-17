@@ -1,4 +1,4 @@
-var startCoord = [63, 18];
+var startCoord = [62.913283, 15.609505];
 var startZoom = 5;
 
 var map = L.mapbox.map('map', 'hisekaldma.hh4jiokf', {
@@ -10,18 +10,44 @@ var map = L.mapbox.map('map', 'hisekaldma.hh4jiokf', {
 
 var geocoder = L.mapbox.geocoder('hisekaldma.hh4jiokf');
 
-var dummyMinisters = [{"name": "Fredrik Reinfeldt","party": "M","title": "statsminister"},{"name": "Anders Borg","party": "M","title": "finansminister"},{"name": "Carl Bildt","party": "M","title": "utrikesminister"},{"name": "Jan Björklund","party": "M","title": "utbildningsminister"},{"party": "M",},{"party": "M",},{"party": "M",},{"party": "M",},{"party": "M",},{"party": "M",},{"party": "KD",},{"party": "KD",},{"party": "KD",},{"party": "FP",},{"party": "FP",},{"party": "FP",},{"party": "FP",},{"party": "C",},{"party": "C",},{"party": "C",},{"party": "C",},{"party": "C",}];
+var districtLayer = null;
 
 $(function() {
+    // Autocomplete
+    $('form input[type=text]').autocomplete({
+      source: suggestAddresses
+    });
+
     // Sumbit form
-    $('#start-view form').submit(submitForm);
-    $('#search-again form').submit(submitForm);    
+    $('form').submit(submitForm);
+
+    // Start view: Show more
+    $("#start-view .show").click(function() {
+        $("#start-view .list-of-examples").toggle("slow");
+    })
+
+    // Start view: Click show more link
+    $("#start-view .list-of-examples a").click(function(event) {
+        event.preventDefault();
+        var $el = $(this);
+        $('form input[type=text]').val($el.text());
+        $('form').submit();
+
+    })
 
     // Search again
     $('#search-again a').click(function(event) {
         event.preventDefault();
         $('#search-again-form').toggle('slow');
-    }) 
+    });
+
+    // About view
+    $('#result-view .about').click(function() {
+        $('#about-view').show();
+    })
+    $('#about-view .close').click(function() {
+        $('#about-view').hide();
+    });
 });
 
 function submitForm(event) {
@@ -32,14 +58,26 @@ function submitForm(event) {
     form.find('input[type=submit]').prop('disabled', true);
     form.find('.spinner').show();
     var searchString = form.find('input[type=text]').val();
+    $('#search-again input[type=text]').val(searchString);
 
     // Async: geocode address
     geocoder.query(searchString + ' Sweden', function(error, data) {
-        var result = findBestMatch(data.results);
+        if (!data.results || data.results.length == 0) {
+            // Enable button
+            form.find('input[type=submit]').prop('disabled', false);
+            form.find('.spinner').hide();
+        }
+
+        var result = data.results[0];
         var province = getProvince(result);
 
         // Async: get election district and government
-        $.get('api/v1.0/get-district/', {"lat": result[0].lat, "lng": result[0].lon, "province": province }, function(data) {
+        $.get('api/v1.0/get-district/', {
+            "lat": result[0].lat,
+            "lng": result[0].lon,
+            "province": province
+        })
+        .done(function(data) {
             var districtName = data.votingDistrict.properties.VDNAMN;
             var districtGeometry = data.votingDistrict.geometry;
             var namedMinisters = data.votingDistrict.properties.government.namedMinisters;
@@ -48,6 +86,11 @@ function submitForm(event) {
             // Render results on map
             showResult(districtName, districtGeometry, namedMinisters, unnamedMinisters);
 
+            // Enable button
+            form.find('input[type=submit]').prop('disabled', false);
+            form.find('.spinner').hide();
+        })
+        .fail(function() {
             // Enable button
             form.find('input[type=submit]').prop('disabled', false);
             form.find('.spinner').hide();
@@ -100,15 +143,18 @@ function showResult(districtName, districtGeometry, namedMinisters, unnamedMinis
                 el.append('<div class="thumbnail bounceIn ' + party.toLowerCase() + '"></div>');
                 el.append('<div class="name">' + party + '</div>');
                 el.appendTo('#result-view .government');
+
+                // Animation
+                var animationLength = Math.random() + 0.5;
+                el.find('.thumbnail').css('animation-duration', animationLength + 's');
             }
         }
-
-        // Animation
-        var animationLength = Math.random() + 0.5;
-        el.find('.thumbnail').css('animation-duration', animationLength + 's');
     });
 
-    // Add a district layer 
+    // Add a district layer
+    if (districtLayer)
+        map.removeLayer(districtLayer);
+
     var featureData = {
         "type": "FeatureCollection",
         "features": [{
@@ -123,7 +169,7 @@ function showResult(districtName, districtGeometry, namedMinisters, unnamedMinis
         "geometry": districtGeometry
         }]
     };
-    var districtLayer = L.geoJson(featureData, {
+    districtLayer = L.geoJson(featureData, {
         pointToLayer: L.mapbox.marker.style,
         style: function(feature) { return feature.properties; }
     }).addTo(map);
@@ -136,20 +182,21 @@ function showResult(districtName, districtGeometry, namedMinisters, unnamedMinis
     $('#result-view').show();
 }
 
-function findBestMatch(results) {
-    // Pick address in one of these cities if possible
-    var cities = ['Stockholm', 'Goteborg', 'Malmo'];
-
-    for (var i = 0; i < cities.length; i++) {
-        for (var j = 0; j < results.length; j++) {
-            if (results[j][1].name == cities[i]) {
-                return results[j];
-            }
-        }
-    }
-
-    return results[0];
+function isInSweden(result) {
+    return result[result.length - 1].name.indexOf('Sweden') != -1;
 }
+
+function suggestAddresses(request, response) {
+    geocoder.query(request.term + ' Sweden', function(error, data) {
+        var suggestions = [];
+        data.results.forEach(function(result) {
+            if (result[0] && result[1] && isInSweden(result))
+                suggestions.push(result[0].name + ', ' + result[1].name);
+        });
+        response(suggestions);
+    });
+}
+
 function getProvince(results) {
     for (var i=0; i < results.length; i++) {
         var d = results[i];

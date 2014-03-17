@@ -3,7 +3,6 @@
  yellow1    = #d69616
  yellow2    = #ba7a14
  yellow3    = #895928
- white      = #e7d8cE
  */
 
 /* Base
@@ -24,10 +23,6 @@ body {
     background: #404d55;
 }
 
-#map.result {
-    right: 600px;
-}
-
 .btn-primary {
     background: #d69616 !important;
     border: none;
@@ -38,6 +33,18 @@ body {
 .btn-primary:focus {
     background-color: #ba7a14 !important;
     outline: none;
+}
+
+.btn-default {
+    background: none;
+    color: #fff;
+}
+
+.btn-default:hover,
+.btn-default:active,
+.btn-default:focus {
+    background: #fff;
+    border-color: #fff;
 }
 
 .btn:disabled {
@@ -66,6 +73,23 @@ a {
 a:hover,
 a:active {
     color: #ba7a14;
+}
+
+.box {
+    color: #fff;
+    background: #404d55;
+    padding: 20px;
+    border-radius: 8px;
+    border: 2px solid #fff;
+    font-weight: 100;
+    line-height: 1.5;
+}
+
+.close {
+    color: #fff;
+    text-shadow: none;
+    font-size: 32px;
+    opacity: 1;
 }
 
 .spinner {
@@ -104,17 +128,48 @@ a:active {
     to {transform: rotate(359deg);}
 }
 
+/* Automcomplete
+   ========================================================================== */
+.ui-autocomplete {
+    background: #fff;
+    border-radius: 5px;
+    padding: 0px;
+    overflow: hidden;
+}
+.ui-menu .ui-menu-item a.ui-state-focus,
+.ui-menu .ui-menu-item a.ui-state-active {
+    color: #fff;
+    margin: 0px;
+    background: #d69616;
+}
+
 /* Start view
    ========================================================================== */
 
 #start-view form {
-    max-width: 400px;
+    max-width: 440px;
     margin: 10% auto;
+}
+
+#start-view form .form-group:last-child {
+    margin-bottom: 0px;
+}
+
+#start-view .logo {
+    text-align: center;
 }
 
 #start-view h1 {
     color: #fff;
     margin-bottom: 20px;
+}
+
+#start-view h2 {
+    color: #d69616;
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 5px;
+    letter-spacing: 1px;
 }
 
 #start-view .spinner {
@@ -124,6 +179,17 @@ a:active {
     left: -10px;
     float: right;
 }
+
+#start-view .examples {
+    font-size: 85%;
+}
+
+#start-view .show {
+    cursor: pointer;
+    text-align: center;
+}
+
+
 
 /* Result view
    ========================================================================== */
@@ -137,10 +203,44 @@ a:active {
     right: 0;
     top: 0;
     bottom: 0;
-    width: 600px;
+    width: 40%;
     padding: 20px;
     background: #fff;
     overflow: auto;
+}
+
+#map.result {
+    right: 40%;
+}
+
+@media (max-width: 768px) {
+    #map.result {
+        right: 0;
+        height: 200px;
+    }
+    #result-view .government {
+        font-weight: 13px;
+        position: static;
+        margin-top: 200px;
+        width: 100%;
+        height: auto;
+        clear: both;
+        font-size: 
+    }
+    #search-again {
+        display: none;
+    }
+    #result-view footer {
+        position: static !important;
+        clear: both;
+        height: 130px !important;
+    }
+    #result-view footer .about {
+        clear: both;
+        float: none;
+        width: 80%;
+        margin-top: 20px;
+    }
 }
 
 #result-view .government h1 {
@@ -211,6 +311,7 @@ a:active {
 
 #result-view .minister .title {
     text-align: center;
+    font-weight: 300;
 }
 
 #result-view footer {
@@ -224,8 +325,18 @@ a:active {
     background: #404d55;
 }
 
-#result-view footer h2 {
+#result-view footer .share {
     margin: 0px;
+    float: left;
+}
+
+#result-view footer .twitter-share-button {
+    margin-left: 30px;
+    vertical-align: bottom;
+}
+
+#result-view .about {
+    float: right;
 }
 
 /* Search again 
@@ -240,6 +351,18 @@ a:active {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     font-size: 18px;
+}
+
+/* About view
+   ========================================================================== */
+
+#about-view {
+    display: none;
+    position: absolute;
+    left: 5%;
+    right: 5%;
+    top: 5%;
+    max-width: 500px;
 }
 
 /* Animations
