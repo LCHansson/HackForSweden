@@ -6,6 +6,7 @@ Kvartersregeringen
 Kvartersregeringen uses __Flask__ as a backend to parse GeoJSON find the right election districts and __MapBox__ to visualize the results. 
 
 - Install __Virtualenv__: `$ sudo easy_install virtualenv`
+- Install [__Brew__](http://brew.sh/)
 - Install [__pip__](http://www.pip-installer.org/en/latest/installing.html)
 - Init your personal environment with `$ virtualenv env --no-site-packages` and `source env/bin/activate`
 - Install requirements: `$ pip install -r requirements.txt`
