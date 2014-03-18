@@ -11,5 +11,6 @@
 *.DS_Store
 .Rproj.user
 
-# Python virtualenv
+# Python
 /app/env
+*.pyc
