@@ -7,6 +7,7 @@ Kvartersregeringen uses __Flask__ as a backend to parse GeoJSON find the right e
 
 - Install __Virtualenv__: `$ sudo easy_install virtualenv`
 - Install [__Brew__](http://brew.sh/)
+  - Install GeoDjango libraries [using brew](https://docs.djangoproject.com/en/dev/ref/contrib/gis/install/#homebrew)
 - Install [__pip__](http://www.pip-installer.org/en/latest/installing.html)
 - Init your personal environment with `$ virtualenv env --no-site-packages` and `source env/bin/activate`
 - Install requirements: `$ pip install -r requirements.txt`
