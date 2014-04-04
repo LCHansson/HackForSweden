@@ -2,23 +2,46 @@
 # -*- coding: utf-8 -*-
 import os
 from flask import Flask, jsonify, abort, request, render_template
+import psycopg2
 import json
 from shapely.geometry import shape, Point
 
 app = Flask(__name__)
 
+conn_string = "host='localhost' dbname='kvartersregeringen' user='Jens' password='jensaf'"
+
+# get a connection, if a connect cannot be made an exception will be raised here
+conn = psycopg2.connect(conn_string)
+
+# conn.cursor will return a cursor object, you can use this cursor to perform queries
+cursor = conn.cursor()
 
 # The public start/results page
 @app.route('/')
 def index():
     return open('index.html').read()
 
+@app.route('/postgres/')
+def postgres():
+  cursor.execute("""
+        SELECT gid, vdnamn, government, seatsinpar, ST_AsGeoJSON(geom) FROM kvartersregeringen
+        WHERE st_contains(geom, ST_GeomFromText('POINT(14 57)', 4326));""")
+  row = cursor.fetchall()[0]
+  data = {
+    "id" : row[0],
+    "name" : row[1],
+    "government": row[2],
+#    "seatsinpar": json.loads(row[3]),
+    "geom" : json.loads(row[4])
+  }
+  return render_template("postgres.html", data = json.dumps(data))
+
 @app.route('/sd-map/')
 def sd_map():
 	json_data = open('data/sd_districts.geojson')
 	geodata = json.load(json_data)
 	return render_template("sd-map.html", geodata = json.dumps(geodata))
- 
+
 # API
 provinces = {
 	'Stockholms län': '01',
@@ -69,7 +92,7 @@ def get_data():
     data = {}
     lat = float(request.args.get('lat'))
     lng = float(request.args.get('lng'))
-    province = request.args.get('province') 
+    province = request.args.get('province')
 
     data["votingDistrict"] = getVotingDistrict(lat, lng, province)
     return jsonify(data)

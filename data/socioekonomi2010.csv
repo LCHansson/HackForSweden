@@ -1,10 +1,4 @@
 META,CODE,Lt_kod,Lt_namn,KommunKod,KommunNamn,Valdistrikt_namn,Röstberättigade totalt,Röstberättigade utländska medborgarskap,Valdeltagande,Moderaterna,Centerpartiet,Folkpartiet,Kristdemokraterna,Miljöpartiet,Socialdemokraterna,Vänsterpartiet,Sverigedemokraterna,Övriga partier,Block Alliansen,Block Rödgröna,Andel 18-29 år ,Andel 30-49 år,Andel 50-64 år,Andel 65- år,Andel utrikes födda,Andel med eftergymnasial utbildning,Medianinkomst
-ID,code,na,na,na,na,na,rostberattigade,rostberattigade_utland,valdeltagande,M,C,FP,KD,MP,S,V,SD,ovriga_partier,block_alliansen,block_svmp,andel18-29,andel30-49,andel50-64,andel65,andelutrike,eftergym,medianinkomst
-DESCRIPTION,lkfv,Lt_kod,Lt_namn,KommunKod,KommunNamn,vdnamn,Röstberättigade totalt,Röstberättigade utländska medborgarskap,Valdeltagande,Moderaterna (M),Centerpartiet (C),Folkpartiet (FP),Kristdemokraterna (KD),Miljöpartiet (MP),Socialdemokraterna (S),Vänsterpartiet (V),Sverigedemokraterna (SD),Övriga partier (ÖVR),Block Alliansen (M+C+FP+KD),Block Rödgröna (S+V+MP),Andel 18-29 år,Andel 30-49 år,Andel 50-64 år,Andel 65- år,Andel utrikes födda,Andel med eftergymnasial utbildning,Medianinkomst
-UNIT,NA,NA,NA,NA,NA,NA,Antal,Antal,%,%,%,%,%,%,%,%,%,%,%,%,%,%,%,%,%,%,Kronor
-PRECISION,NA,NA,NA,NA,NA,NA,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0
-CAPTURED,NA,NA,NA,NA,NA,NA,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010
-PARSETYPE,S,S,S,S,S,S,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F
 ,05090101,05,Östergötlands läns landsting,0509,Ödeshög,Holaveden,651,31,76,22.2,20.7,2.1,17.5,4.7,22,4.5,3.5,2.9,62.4,31.2,14.7,30.1,30.4,24.7,6.3,20.9,200000
 ,05090201,05,Östergötlands läns landsting,0509,Ödeshög,Fridtjuv Berg,1299,53,79.6,17.6,10.2,2.6,15,6.9,38.1,3.1,4.4,2.1,45.4,48.1,14.9,26.8,24.9,33.4,7.9,13.3,188000
 ,05090202,05,Östergötlands läns landsting,0509,Ödeshög,Lysing,1268,35,76.7,17.4,9.1,5.1,16.9,7.4,35.9,2.7,3.2,2.3,48.5,46,14,27.6,25.1,33.3,6.6,15.1,196000
