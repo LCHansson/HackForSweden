@@ -3,7 +3,6 @@ Jinja2==2.7.2
 MarkupSafe==0.19
 Shapely==1.3.0
 Werkzeug==0.9.4
-geocoder==0.4.7
 geopy==0.98.3
 gunicorn==18.0
 haversine==0.1
