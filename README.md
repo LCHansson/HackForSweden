@@ -13,6 +13,11 @@ Kvartersregeringen uses __Flask__ as a backend to parse GeoJSON find the right e
 - Install requirements: `$ pip install -r requirements.txt`
 - Start server: `$ python app.py`
 
+### Update Heroku
+
+- `git subtree push --prefix app heroku master`
+
+
 ### Update with new data
 
 - Load election data and run simulations in R. Write the results of the simulation to the geoJSON file.
